@@ -12,7 +12,7 @@ public class SignupFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.activity_sign_up, container, false);
+        return inflater.inflate(R.layout.signup_fragment, container, false);
     }
 
 }
