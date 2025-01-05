@@ -12,4 +12,8 @@
     <string name="taken_slots">Taken Slots</string>
     <string name="available_slots">Available Slots</string>
     <string name="park_entry">Park Entry</string>
+    <string name="click_to_sign_up">Click to sign up</string>
+    <string name="welcome_to_our_app">Welcome to our App!</string>
+    <string name="click_to_login">Click to Login</string>
+    <string name="click_to_singup">Click to SingUp</string>
 </resources>
