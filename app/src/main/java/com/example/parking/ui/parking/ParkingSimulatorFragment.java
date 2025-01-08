@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.gridlayout.widget.GridLayout;
 
 import com.example.parking.R;
+import com.example.parking.ui.profile.ProfileFragment;
 
 public class ParkingSimulatorFragment extends Fragment {
 
@@ -27,6 +29,14 @@ public class ParkingSimulatorFragment extends Fragment {
         TextView takenSlots = view.findViewById(R.id.taken_slots);
 
         GridLayout grid = view.findViewById(R.id.gridSlots);
+
+        Button backButton = view.findViewById(R.id.back_park);
+        backButton.setOnClickListener(v -> {
+            requireActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.container, new ParkSelectionFragment()) // `R.id.fragment_container` should be the container for fragments in your activity layout
+                    .addToBackStack(null) // Optional: Add to back stack so user can navigate back
+                    .commit();
+        });
 
        if (getArguments() == null){
            Toast.makeText(getContext(), "Error passing arguments..." , Toast.LENGTH_SHORT).show();

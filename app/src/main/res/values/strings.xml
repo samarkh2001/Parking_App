@@ -33,4 +33,6 @@
     <string name="login1">Login</string>
     <string name="forgot_password">Forgot Password?</string>
     <string name="not_yet_registered_sign_up">Not yet registered? Sign Up</string>
+    <string name="back">Back</string>
+    <string name="back_parking">Back</string>
 </resources>

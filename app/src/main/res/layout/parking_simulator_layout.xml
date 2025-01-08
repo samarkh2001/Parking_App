@@ -4,6 +4,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <Button
+        android:id="@+id/back_park"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="319dp"
+        android:layout_marginBottom="679dp"
+        android:text="@string/back_parking"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/layoutTitle"
         android:layout_width="195dp"
@@ -27,10 +41,10 @@
         android:layout_height="512dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.916"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layoutTitle"
-        app:layout_constraintVertical_bias="0.187">
+        app:layout_constraintVertical_bias="0.342">
 
     </androidx.gridlayout.widget.GridLayout>
 
@@ -45,7 +59,7 @@
         app:layout_constraintHorizontal_bias="0.134"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layoutTitle"
-        app:layout_constraintVertical_bias="0.538" />
+        app:layout_constraintVertical_bias="0.666" />
 
     <TextView
         android:id="@+id/parkText"
@@ -56,10 +70,10 @@
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/gridSlots"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.045"
+        app:layout_constraintHorizontal_bias="0.035"
         app:layout_constraintStart_toEndOf="@+id/cityText"
         app:layout_constraintTop_toBottomOf="@+id/layoutTitle"
-        app:layout_constraintVertical_bias="0.509" />
+        app:layout_constraintVertical_bias="0.69" />
 
     <TextView
         android:id="@+id/textView5"
@@ -69,10 +83,10 @@
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.071"
+        app:layout_constraintHorizontal_bias="0.061"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gridSlots"
-        app:layout_constraintVertical_bias="0.228" />
+        app:layout_constraintVertical_bias="0.128" />
 
     <TextView
         android:id="@+id/textView6"
@@ -85,7 +99,7 @@
         app:layout_constraintHorizontal_bias="0.097"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5"
-        app:layout_constraintVertical_bias="0.105" />
+        app:layout_constraintVertical_bias="0.282" />
 
     <TextView
         android:id="@+id/avbl_slots"
@@ -99,7 +113,7 @@
         app:layout_constraintHorizontal_bias="0.318"
         app:layout_constraintStart_toEndOf="@+id/textView5"
         app:layout_constraintTop_toBottomOf="@+id/gridSlots"
-        app:layout_constraintVertical_bias="0.236" />
+        app:layout_constraintVertical_bias="0.128" />
 
     <TextView
         android:id="@+id/taken_slots"
@@ -110,10 +124,10 @@
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.347"
+        app:layout_constraintHorizontal_bias="0.338"
         app:layout_constraintStart_toEndOf="@+id/textView6"
         app:layout_constraintTop_toBottomOf="@+id/avbl_slots"
-        app:layout_constraintVertical_bias="0.092" />
+        app:layout_constraintVertical_bias="0.181" />
 
     <ImageView
         android:id="@+id/imageView"
