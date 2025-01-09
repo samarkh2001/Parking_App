@@ -52,6 +52,8 @@
                 android:layout_marginTop="40dp"
                 android:padding="8dp"
                 android:hint="@string/email"
+                android:autofillHints="emailAddress"
+                android:inputType="textEmailAddress"
                 android:drawableStart="@drawable/baseline_account_box_24"
                 android:drawablePadding="8dp"
                 android:textColor="@color/black"/>
@@ -63,7 +65,9 @@
                 android:background="@drawable/custom_edittext"
                 android:layout_marginTop="20dp"
                 android:padding="8dp"
+                android:autofillHints="password"
                 android:hint="@string/password"
+                android:inputType="textPassword"
                 android:drawableStart="@drawable/ic_baseline_lock_24"
                 android:drawablePadding="8dp"
                 android:textColor="@color/black"/>

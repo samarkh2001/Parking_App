@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -37,7 +38,7 @@ public class SignupFragment extends Fragment {
             String email = emailComp.getText().toString();
             String password = passComp.getText().toString();
 
-            System.out.println(email + " - " + password);
+            Toast.makeText(getContext(), "email: " + email + ", pass: " + password, Toast.LENGTH_SHORT).show();
         });
 
         return view;
