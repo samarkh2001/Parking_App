@@ -5,13 +5,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import com.example.parking.R;
 import com.example.parking.ui.profile.ProfileFragment;
 
 public class SignupFragment extends Fragment {
+
+    @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -23,6 +27,17 @@ public class SignupFragment extends Fragment {
                     .replace(R.id.container, new ProfileFragment()) // `R.id.fragment_container` should be the container for fragments in your activity layout
                     .addToBackStack(null) // Optional: Add to back stack so user can navigate back
                     .commit();
+        });
+
+        Button signUpBtn = view.findViewById(R.id.signup_button);
+        signUpBtn.setOnClickListener(event -> {
+            EditText emailComp = view.findViewById(R.id.signup_email);
+            EditText passComp = view.findViewById(R.id.signup_password);
+
+            String email = emailComp.getText().toString();
+            String password = passComp.getText().toString();
+
+            System.out.println(email + " - " + password);
         });
 
         return view;
