@@ -9,15 +9,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-
 import com.example.parking.R;
-
 import java.util.Arrays;
+
 
 public class ParkSelectionFragment extends Fragment {
     private Spinner parksSpinner;
@@ -32,6 +30,15 @@ public class ParkSelectionFragment extends Fragment {
         Spinner citySpinner = view.findViewById(R.id.cityList);
         parksSpinner = view.findViewById(R.id.parks_list);
         Button continueBtn = view.findViewById(R.id.continue_btn);
+
+        Button backButton = view.findViewById(R.id.back_signup_login);
+        backButton.setOnClickListener(v -> {
+            requireActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.container, new SignupLoginFragment()) // `R.id.fragment_container` should be the container for fragments in your activity layout
+                    .addToBackStack(null) // Optional: Add to back stack so user can navigate back
+                    .commit();
+        });
+
 
         /*
          * temp - delete later
