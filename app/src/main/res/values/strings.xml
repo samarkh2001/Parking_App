@@ -45,5 +45,10 @@
     <string name="cvv">CVV</string>
     <string name="pay_now">Pay Now</string>
     <string name="payment">payment</string>
+    <string name="user_email_label">User Email:</string>
+    <string name="vehicle_number_label">Vehicle Number:</string>
+    <string name="vehicle_location_label">Vehicle Location in Parking:</string>
+    <string name="parking_time_label">Time of Parking:</string>
+    <string name="payment_cost_label">Payment Cost:</string>
 
 </resources>
