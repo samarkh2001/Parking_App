@@ -1,6 +1,9 @@
 package com.example.parking.client.request;
 
-import requests.Message;
+import com.example.parking.client.Client;
+
+import commons.entities.User;
+import commons.requests.Message;
 
 public class RequestHandler {
 
@@ -12,6 +15,15 @@ public class RequestHandler {
                     System.out.println("Successfully Registered!");
                 else
                     System.out.println("Something went wrong registering...!");
+                return;
+            case LOGIN:
+                if (msg.isSuccess() && msg.getResponse() instanceof User){
+                    Client.debug("RequestHandler@LOGIN", "User logging in");
+                    Client.loggedInUser = (User) msg.getResponse();
+                }else{
+                    Client.debug("RequestHandler@LOGIN", "invalid login request");
+                    Client.loggedInUser = null;
+                }
                 return;
             case INVALID_DATATYPE:
                 return;

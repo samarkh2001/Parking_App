@@ -99,8 +99,7 @@
                 android:inputType="textPassword"
                 android:drawableStart="@drawable/ic_baseline_lock_24"
                 android:drawablePadding="8dp"
-                android:textColor="@color/black"
-                android:inputType="textPassword" />
+                android:textColor="@color/black" />
 
             <!-- Vehicle Number -->
             <EditText
