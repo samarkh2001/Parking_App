@@ -1,58 +1,94 @@
 package com.example.parking.ui.user;
 
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
-
+import android.widget.TextView;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import com.example.parking.R;
-import com.example.parking.client.Client;
-import com.example.parking.ui.profile.ProfileFragment;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import requests.Message;
-import requests.RequestType;
+import com.example.parking.ui.parking.ParkSelectionFragment;
+import com.example.parking.ui.parking.SignupLoginFragment;
 
 public class SignupFragment extends Fragment {
 
-    @Nullable
+    private EditText firstNameField, lastNameField, emailField, passwordField, vehicleNumberField;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.signup_fragment, container, false);
 
+        // Initialize input fields
+        firstNameField = view.findViewById(R.id.signup_first_name);
+        lastNameField = view.findViewById(R.id.signup_last_name);
+        emailField = view.findViewById(R.id.signup_email);
+        passwordField = view.findViewById(R.id.signup_password);
+        vehicleNumberField = view.findViewById(R.id.signup_vehicle_number);
+
+        // Back button
         Button backButton = view.findViewById(R.id.back_button);
-        backButton.setOnClickListener(v -> requireActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, new ProfileFragment()) // `R.id.fragment_container` should be the container for fragments in your activity layout
-                .addToBackStack(null) // Optional: Add to back stack so user can navigate back
-                .commit());
+        backButton.setOnClickListener(v -> {
+            requireActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.container, new SignupLoginFragment())
+                    .addToBackStack(null)
+                    .commit();
+        });
 
-        Button signUpBtn = view.findViewById(R.id.signup_button);
-        signUpBtn.setOnClickListener(event -> {
-            EditText emailComp = view.findViewById(R.id.signup_email);
-            EditText passComp = view.findViewById(R.id.signup_password);
+        // ViewModel for validation (Optional, used for modular logic)
+        SignupViewModel viewModel = new ViewModelProvider(this).get(SignupViewModel.class);
 
-            String email = emailComp.getText().toString();
-            String password = passComp.getText().toString();
+        // Sign up button
+        Button signupButton = view.findViewById(R.id.signup_button);
+        signupButton.setOnClickListener(v -> {
+            if (validateInputs(viewModel)) {
+                // Proceed to the next screen
+                requireActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.container, new ParkSelectionFragment())
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
 
-            List<String> data = new ArrayList<>();
-            data.add(email);
-            data.add(password);
-            Client.getClient().sendMessageToServer(new Message(RequestType.REGISTER, data));
-
-
-            Toast.makeText(getContext(), "email: " + email + ", pass: " + password, Toast.LENGTH_SHORT).show();
+        // Login redirect text
+        TextView loginRedirectText = view.findViewById(R.id.loginRedirectText);
+        loginRedirectText.setOnClickListener(v -> {
+            requireActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.container, new LoginFragment())
+                    .addToBackStack(null)
+                    .commit();
         });
 
         return view;
     }
 
+    private boolean validateInputs(SignupViewModel viewModel) {
+        // Validate inputs using ViewModel
+        String firstName = firstNameField.getText().toString();
+        String lastName = lastNameField.getText().toString();
+        String email = emailField.getText().toString();
+        String password = passwordField.getText().toString();
+        String vehicleNumber = vehicleNumberField.getText().toString();
+
+        if (!viewModel.validateInputs(firstName, lastName, email, password, vehicleNumber)) {
+            // Handle field-specific errors
+            if (TextUtils.isEmpty(firstName)) firstNameField.setError("First name is required");
+            if (TextUtils.isEmpty(lastName)) lastNameField.setError("Last name is required");
+            if (TextUtils.isEmpty(email) || !Patterns.EMAIL_ADDRESS.matcher(email).matches())
+                emailField.setError("Enter a valid email");
+            if (TextUtils.isEmpty(password) || password.length() < 6)
+                passwordField.setError("Password must be at least 6 characters");
+            if (TextUtils.isEmpty(vehicleNumber) || vehicleNumber.length() != 8 || !vehicleNumber.matches("\\d+"))
+                vehicleNumberField.setError("Enter a valid 8-digit vehicle number");
+
+            return false;
+        }
+        return true;
+    }
 }

@@ -2,7 +2,6 @@ package com.example.parking.ui.parking;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-
 import java.util.List;
 
 public class ParkSelectionView extends ViewModel {

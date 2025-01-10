@@ -8,13 +8,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.gridlayout.widget.GridLayout;
-
 import com.example.parking.R;
+
 
 public class ParkingSimulatorFragment extends Fragment {
 
@@ -33,6 +32,14 @@ public class ParkingSimulatorFragment extends Fragment {
         backButton.setOnClickListener(v -> {
             requireActivity().getSupportFragmentManager().beginTransaction()
                     .replace(R.id.container, new ParkSelectionFragment()) // `R.id.fragment_container` should be the container for fragments in your activity layout
+                    .addToBackStack(null) // Optional: Add to back stack so user can navigate back
+                    .commit();
+        });
+
+        Button paymentButton = view.findViewById(R.id.paymentBtn);
+        paymentButton.setOnClickListener(v -> {
+            requireActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.container, new PaymentFragment()) // `R.id.fragment_container` should be the container for fragments in your activity layout
                     .addToBackStack(null) // Optional: Add to back stack so user can navigate back
                     .commit();
         });

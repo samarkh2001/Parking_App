@@ -10,8 +10,8 @@
 
     <TextView
         android:id="@+id/homeTitle"
-        android:layout_width="352dp"
-        android:layout_height="61dp"
+        android:layout_width="356dp"
+        android:layout_height="66dp"
         android:fontFamily="sans-serif-medium"
         android:text="@string/welcome_to_our_app"
         android:textColor="@android:color/black"
@@ -20,34 +20,10 @@
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.661"
+        app:layout_constraintHorizontal_bias="0.709"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.079" />
+        app:layout_constraintVertical_bias="0.076" />
 
-    <Button
-        android:id="@+id/signupBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="116dp"
-        android:text="@string/click_to_signup"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.101"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/homeTitle"
-        app:layout_constraintVertical_bias="0.141" />
 
-    <Button
-        android:id="@+id/loginBtn"
-        android:layout_width="158dp"
-        android:layout_height="54dp"
-        android:layout_marginStart="42dp"
-        android:text="@string/click_to_login"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.033"
-        app:layout_constraintStart_toEndOf="@+id/signupBtn"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.435" />
 </androidx.constraintlayout.widget.ConstraintLayout>

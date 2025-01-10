@@ -1,31 +1,97 @@
 package com.example.parking.ui.user;
 
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-
+import androidx.lifecycle.ViewModelProvider;
 import com.example.parking.R;
-import com.example.parking.ui.profile.ProfileFragment;
+import com.example.parking.ui.parking.ParkSelectionFragment;
+import com.example.parking.ui.parking.SignupLoginFragment;
 
 public class LoginFragment extends Fragment {
+
+    private EditText emailField, passwordField;
+    private LoginViewModel loginViewModel;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.login_fragment, container, false);
 
+        // Initialize fields
+        emailField = view.findViewById(R.id.login_email);
+        passwordField = view.findViewById(R.id.login_password);
+
+        // Initialize ViewModel
+        loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
+
+        // Back button
         Button backButton = view.findViewById(R.id.back_button);
         backButton.setOnClickListener(v -> {
             requireActivity().getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container, new ProfileFragment()) // `R.id.fragment_container` should be the container for fragments in your activity layout
-                    .addToBackStack(null) // Optional: Add to back stack so user can navigate back
+                    .replace(R.id.container, new SignupLoginFragment())
+                    .addToBackStack(null)
+                    .commit();
+        });
+
+        // Login button
+        Button loginButton = view.findViewById(R.id.login_button);
+        loginButton.setOnClickListener(v -> {
+            if (validateInputs()) {
+                // Mock login logic
+                boolean isLoginSuccessful = loginViewModel.login(
+                        emailField.getText().toString(),
+                        passwordField.getText().toString()
+                );
+
+                if (isLoginSuccessful) {
+                    // Navigate to ParkSelectionFragment
+                    requireActivity().getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.container, new ParkSelectionFragment())
+                            .addToBackStack(null)
+                            .commit();
+                } else {
+                    Toast.makeText(getContext(), "Invalid email or password", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        // Redirect to Sign Up
+        TextView signUpRedirectText = view.findViewById(R.id.signUpRedirectText);
+        signUpRedirectText.setOnClickListener(v -> {
+            requireActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.container, new SignupFragment())
+                    .addToBackStack(null)
                     .commit();
         });
 
         return view;
+    }
+
+    private boolean validateInputs() {
+        // Validate email
+        String email = emailField.getText().toString();
+        if (TextUtils.isEmpty(email) || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            emailField.setError("Enter a valid email");
+            return false;
+        }
+
+        // Validate password
+        String password = passwordField.getText().toString();
+        if (TextUtils.isEmpty(password) || password.length() < 6) {
+            passwordField.setError("Password must be at least 6 characters");
+            return false;
+        }
+
+        return true;
     }
 }

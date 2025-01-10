@@ -35,4 +35,15 @@
     <string name="not_yet_registered_sign_up">Not yet registered? Sign Up</string>
     <string name="back">Back</string>
     <string name="back_parking">Back</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="vehicle_number">Vehicle Number (8 digits)</string>
+    <string name="payment_details">Payment Details</string>
+    <string name="cardholder_name">Cardholder Name</string>
+    <string name="card_number">Card Number</string>
+    <string name="expiry_date">Expiry Date (MM/YY)</string>
+    <string name="cvv">CVV</string>
+    <string name="pay_now">Pay Now</string>
+    <string name="payment">payment</string>
+
 </resources>
