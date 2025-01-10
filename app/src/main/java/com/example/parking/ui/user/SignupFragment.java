@@ -15,7 +15,6 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.parking.R;
 import com.example.parking.client.Client;
 import com.example.parking.ui.parking.SignupLoginFragment;
-
 import commons.entities.User;
 import commons.requests.Message;
 import commons.requests.RequestType;
