@@ -46,6 +46,7 @@ public class Client extends AbstractClient {
                 awaitResponse = true;
 
                 sendToServer(message);
+                debug("Client@sendMessageToServer", "sent message to server");
                 int loops = 0;
                 // wait for response
                 while (awaitResponse) {

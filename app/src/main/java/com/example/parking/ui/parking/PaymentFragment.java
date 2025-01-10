@@ -24,6 +24,15 @@ public class PaymentFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_payment, container, false);
 
+        // Back button
+        Button backButton = view.findViewById(R.id.back_button);
+        backButton.setOnClickListener(v -> {
+            requireActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.container, new ParkingSimulatorFragment())
+                    .addToBackStack(null)
+                    .commit();
+        });
+
         // Initialize views
         cardholderName = view.findViewById(R.id.cardholder_name);
         cardNumber = view.findViewById(R.id.card_number);
