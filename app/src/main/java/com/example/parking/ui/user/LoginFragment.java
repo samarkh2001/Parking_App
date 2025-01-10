@@ -14,8 +14,13 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import com.example.parking.R;
+import com.example.parking.client.Client;
 import com.example.parking.ui.parking.ParkSelectionFragment;
 import com.example.parking.ui.parking.SignupLoginFragment;
+
+import commons.entities.User;
+import commons.requests.Message;
+import commons.requests.RequestType;
 
 public class LoginFragment extends Fragment {
 
@@ -47,21 +52,15 @@ public class LoginFragment extends Fragment {
         Button loginButton = view.findViewById(R.id.login_button);
         loginButton.setOnClickListener(v -> {
             if (validateInputs()) {
-                // Mock login logic
-                boolean isLoginSuccessful = loginViewModel.login(
-                        emailField.getText().toString(),
-                        passwordField.getText().toString()
-                );
-
-                if (isLoginSuccessful) {
+                if (Client.loggedInUser != null) {
                     // Navigate to ParkSelectionFragment
                     requireActivity().getSupportFragmentManager().beginTransaction()
                             .replace(R.id.container, new ParkSelectionFragment())
                             .addToBackStack(null)
                             .commit();
-                } else {
-                    Toast.makeText(getContext(), "Invalid email or password", Toast.LENGTH_SHORT).show();
                 }
+            }else {
+                Toast.makeText(getContext(), "Invalid email or password", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -92,6 +91,14 @@ public class LoginFragment extends Fragment {
             return false;
         }
 
-        return true;
+        User u = new User(email, password);
+        Client.forceWait = true;
+        Client.getClient().sendMessageToServer(new Message(RequestType.LOGIN, u));
+
+        while(Client.forceWait){
+            System.out.print("");
+        }
+        System.out.println();
+        return Client.loggedInUser != null;
     }
 }
