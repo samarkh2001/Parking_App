@@ -13,14 +13,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import com.example.parking.R;
 import com.example.parking.client.Client;
-import com.example.parking.client.Configs;
-import com.example.parking.client.request.Message;
-import com.example.parking.client.request.RequestType;
 import com.example.parking.ui.profile.ProfileFragment;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
+
+import requests.Message;
+import requests.RequestType;
 
 public class SignupFragment extends Fragment {
 
