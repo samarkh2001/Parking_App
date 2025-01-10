@@ -13,8 +13,12 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import com.example.parking.R;
-import com.example.parking.ui.parking.ParkSelectionFragment;
+import com.example.parking.client.Client;
 import com.example.parking.ui.parking.SignupLoginFragment;
+
+import commons.entities.User;
+import commons.requests.Message;
+import commons.requests.RequestType;
 
 public class SignupFragment extends Fragment {
 
@@ -46,15 +50,7 @@ public class SignupFragment extends Fragment {
 
         // Sign up button
         Button signupButton = view.findViewById(R.id.signup_button);
-        signupButton.setOnClickListener(v -> {
-            if (validateInputs(viewModel)) {
-                // Proceed to the next screen
-                requireActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.container, new ParkSelectionFragment())
-                        .addToBackStack(null)
-                        .commit();
-            }
-        });
+        signupButton.setOnClickListener(v -> validateInputs(viewModel));
 
         // Login redirect text
         TextView loginRedirectText = view.findViewById(R.id.loginRedirectText);
@@ -68,7 +64,7 @@ public class SignupFragment extends Fragment {
         return view;
     }
 
-    private boolean validateInputs(SignupViewModel viewModel) {
+    private void validateInputs(SignupViewModel viewModel) {
         // Validate inputs using ViewModel
         String firstName = firstNameField.getText().toString();
         String lastName = lastNameField.getText().toString();
@@ -87,8 +83,9 @@ public class SignupFragment extends Fragment {
             if (TextUtils.isEmpty(vehicleNumber) || vehicleNumber.length() != 8 || !vehicleNumber.matches("\\d+"))
                 vehicleNumberField.setError("Enter a valid 8-digit vehicle number");
 
-            return false;
+            return;
         }
-        return true;
+        User u = new User(firstName, lastName, email, password, vehicleNumber);
+        Client.getClient().sendMessageToServer(new Message(RequestType.REGISTER, u));
     }
 }

@@ -92,13 +92,17 @@ public class ParkingSimulatorFragment extends Fragment {
                    grid.addView(slotImageView);
                }
            }
-           String s = avbl + ".";
+           StringBuilder sb = new StringBuilder();
+           sb.append(avbl);
+           sb.append(".");
            if (avbl > 0)
-               avblSlots.setText(s);
+               avblSlots.setText(sb.toString());
 
-           s = taken + ".";
+           sb = new StringBuilder();
+           sb.append(taken);
+           sb.append(".");
            if (taken > 0)
-               takenSlots.setText(s);
+               takenSlots.setText(sb.toString());
        }
 
         return view;
