@@ -17,6 +17,8 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.example.parking.R;
+import com.example.parking.client.Client;
+
 import java.util.Arrays;
 
 
@@ -28,6 +30,13 @@ public class ParkSelectionFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        if (Client.loggedInUser == null){
+            NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
+            navController.navigate(R.id.from_park_selection_to_signup_login);
+            return null;
+        }
+
         View view = inflater.inflate(R.layout.fragment_park_selection, container, false);
         selectParkView = new ViewModelProvider(this).get(ParkSelectionView.class);
         Spinner citySpinner = view.findViewById(R.id.cityList);

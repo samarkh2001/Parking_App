@@ -13,6 +13,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+
 import com.example.parking.R;
 import com.example.parking.client.Client;
 import com.example.parking.ui.parking.ParkSelectionFragment;
@@ -54,10 +57,8 @@ public class LoginFragment extends Fragment {
             if (validateInputs()) {
                 if (Client.loggedInUser != null) {
                     // Navigate to ParkSelectionFragment
-                    requireActivity().getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.container, new ParkSelectionFragment())
-                            .addToBackStack(null)
-                            .commit();
+                    NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
+                    navController.navigate(R.id.from_login_to_parking);
                 }
             }else {
                 Toast.makeText(getContext(), "Invalid email or password", Toast.LENGTH_SHORT).show();
@@ -67,10 +68,8 @@ public class LoginFragment extends Fragment {
         // Redirect to Sign Up
         TextView signUpRedirectText = view.findViewById(R.id.signUpRedirectText);
         signUpRedirectText.setOnClickListener(v -> {
-            requireActivity().getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container, new SignupFragment())
-                    .addToBackStack(null)
-                    .commit();
+            NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
+            navController.navigate(R.id.from_login_to_signup);
         });
 
         return view;

@@ -29,6 +29,10 @@
             android:id="@+id/from_park_selection_to_simulator"
             app:destination="@id/navigation_parking_simulator"
             />
+        <action
+            android:id="@+id/from_park_selection_to_signup_login"
+            app:destination="@id/navigation_signup_login_fragment"
+            />
     </fragment>
 
     <fragment
@@ -46,14 +50,33 @@
         android:id="@+id/navigation_signup"
         android:name="com.example.parking.ui.user.SignupFragment"
         android:label="@string/sign_up"
-        tools:layout="@layout/signup_fragment"
-        />
+        tools:layout="@layout/signup_fragment">
+        <action
+            android:id="@+id/from_signup_to_login"
+            app:destination="@id/navigation_log_in"
+            />
+        <action
+            android:id="@+id/from_signup_to_parking"
+            app:destination="@id/navigation_park_selection"
+            />
+    </fragment>
+
+
     <fragment
         android:id="@+id/navigation_log_in"
         android:name="com.example.parking.ui.user.LoginFragment"
         android:label="@string/login"
-        tools:layout="@layout/login_fragment"
-        />
+        tools:layout="@layout/login_fragment">
+        <action
+            android:id="@+id/from_login_to_parking"
+            app:destination="@id/navigation_park_selection"
+            />
+
+        <action
+            android:id="@+id/from_login_to_signup"
+            app:destination="@id/navigation_signup"
+            />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_signup_login_fragment"

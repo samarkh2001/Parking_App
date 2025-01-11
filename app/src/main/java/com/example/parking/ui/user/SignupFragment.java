@@ -12,6 +12,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+
 import com.example.parking.R;
 import com.example.parking.client.Client;
 import com.example.parking.ui.parking.SignupLoginFragment;
@@ -54,10 +57,8 @@ public class SignupFragment extends Fragment {
         // Login redirect text
         TextView loginRedirectText = view.findViewById(R.id.loginRedirectText);
         loginRedirectText.setOnClickListener(v -> {
-            requireActivity().getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container, new LoginFragment())
-                    .addToBackStack(null)
-                    .commit();
+            NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
+            navController.navigate(R.id.from_signup_to_login);
         });
 
         return view;
