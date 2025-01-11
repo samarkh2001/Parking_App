@@ -10,18 +10,6 @@
     android:background="@drawable/parking_bkg"
     tools:context=".ui.profile.ProfileFragment">
 
-    <!-- Back Button -->
-    <Button
-        android:id="@+id/back_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="start"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="5dp"
-        android:backgroundTint="@color/lavender"
-        android:text="@string/back"
-        android:textSize="16sp" />
-
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -42,7 +30,7 @@
                 android:id="@+id/welcome_message"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Welcome to our app, User!"
+                android:text="@string/welcome_to_our_app_user"
                 android:textSize="28sp"
                 android:textAlignment="center"
                 android:textStyle="bold"
@@ -54,7 +42,7 @@
                 android:id="@+id/user_email_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="User Email:"
+                android:text="@string/user_email"
                 android:textStyle="bold"
                 android:layout_marginTop="16dp"
                 android:textSize="20sp"
@@ -64,7 +52,7 @@
                 android:id="@+id/user_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="example@example.com"
+                android:text="@string/example_example_com"
                 android:layout_marginTop="8dp"
                 android:textSize="18sp"
                 android:textColor="@color/black" />
@@ -74,7 +62,7 @@
                 android:id="@+id/vehicle_number_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Vehicle Number:"
+                android:text="@string/vehicle_number1"
                 android:textStyle="bold"
                 android:layout_marginTop="16dp"
                 android:textSize="20sp"
@@ -84,7 +72,7 @@
                 android:id="@+id/vehicle_number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="12345678"
+                android:text="@string/_12345678"
                 android:layout_marginTop="8dp"
                 android:textSize="18sp"
                 android:textColor="@color/black" />
@@ -94,7 +82,7 @@
                 android:id="@+id/vehicle_location_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Vehicle Location in Parking:"
+                android:text="@string/vehicle_location_in_parking"
                 android:textStyle="bold"
                 android:layout_marginTop="16dp"
                 android:textSize="20sp"
@@ -104,7 +92,7 @@
                 android:id="@+id/vehicle_location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Slot A1"
+                android:text="@string/slot_a1"
                 android:layout_marginTop="8dp"
                 android:textSize="18sp"
                 android:textColor="@color/black" />
@@ -114,7 +102,7 @@
                 android:id="@+id/parking_time_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Time of Parking:"
+                android:text="@string/time_of_parking"
                 android:textStyle="bold"
                 android:layout_marginTop="16dp"
                 android:textSize="20sp"
@@ -124,7 +112,7 @@
                 android:id="@+id/parking_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="10:30 AM"
+                android:text="@string/_10_30_am"
                 android:layout_marginTop="8dp"
                 android:textSize="18sp"
                 android:textColor="@color/black" />
@@ -134,7 +122,7 @@
                 android:id="@+id/payment_cost_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Payment Cost:"
+                android:text="@string/payment_cost"
                 android:textStyle="bold"
                 android:layout_marginTop="16dp"
                 android:textSize="20sp"
@@ -144,10 +132,21 @@
                 android:id="@+id/payment_cost"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="$10.00"
+                android:text="@string/_10_00"
                 android:layout_marginTop="8dp"
                 android:textSize="18sp"
                 android:textColor="@color/black" />
+
+            <!-- Logout Icon -->
+            <ImageButton
+                android:id="@+id/logout_icon"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_logout"
+                android:contentDescription="@string/logout" />
 
         </LinearLayout>
 

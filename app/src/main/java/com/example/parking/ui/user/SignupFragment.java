@@ -14,10 +14,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-
 import com.example.parking.R;
 import com.example.parking.client.Client;
-import com.example.parking.ui.parking.SignupLoginFragment;
 import commons.entities.User;
 import commons.requests.Message;
 import commons.requests.RequestType;
@@ -38,14 +36,6 @@ public class SignupFragment extends Fragment {
         passwordField = view.findViewById(R.id.signup_password);
         vehicleNumberField = view.findViewById(R.id.signup_vehicle_number);
 
-        // Back button
-        Button backButton = view.findViewById(R.id.back_button);
-        backButton.setOnClickListener(v -> {
-            requireActivity().getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container, new SignupLoginFragment())
-                    .addToBackStack(null)
-                    .commit();
-        });
 
         // ViewModel for validation (Optional, used for modular logic)
         SignupViewModel viewModel = new ViewModelProvider(this).get(SignupViewModel.class);

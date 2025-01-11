@@ -50,5 +50,18 @@
     <string name="vehicle_location_label">Vehicle Location in Parking:</string>
     <string name="parking_time_label">Time of Parking:</string>
     <string name="payment_cost_label">Payment Cost:</string>
+    <string name="instructions">instructions</string>
+    <string name="logout">logout</string>
+    <string name="welcome_to_our_app_user">Welcome to our app, User!</string>
+    <string name="user_email">User Email:</string>
+    <string name="example_example_com">example@example.com</string>
+    <string name="vehicle_number1">Vehicle Number:</string>
+    <string name="_12345678">12345678</string>
+    <string name="vehicle_location_in_parking">Vehicle Location in Parking:</string>
+    <string name="slot_a1">Slot A1</string>
+    <string name="time_of_parking">Time of Parking:</string>
+    <string name="_10_30_am">10:30 AM</string>
+    <string name="payment_cost">Payment Cost:</string>
+    <string name="_10_00">$10.00</string>
 
 </resources>
