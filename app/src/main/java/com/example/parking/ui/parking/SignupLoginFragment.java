@@ -7,6 +7,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+
 import com.example.parking.R;
 import com.example.parking.ui.user.LoginFragment;
 import com.example.parking.ui.user.SignupFragment;
@@ -20,23 +23,16 @@ public class SignupLoginFragment extends Fragment {
         Button signupButton = view.findViewById(R.id.signupBtn);
         // Set click listener for the signup button
         signupButton.setOnClickListener(v -> {
-
-            // Start SignupActivity
-            requireActivity().getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container, new SignupFragment()) // `R.id.fragment_container` should be the container for fragments in your activity layout
-                    .addToBackStack(null) // Optional: Add to back stack so user can navigate back
-                    .commit();
+            NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
+            navController.navigate(R.id.action_to_sign_up);
         });
 
         Button loginButton = view.findViewById(R.id.loginBtn);
         // Set click listener for the signup button
         loginButton.setOnClickListener(v -> {
+            NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
+            navController.navigate(R.id.action_to_log_in);
 
-            // Start SignupActivity
-            requireActivity().getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container, new LoginFragment()) // `R.id.fragment_container` should be the container for fragments in your activity layout
-                    .addToBackStack(null) // Optional: Add to back stack so user can navigate back
-                    .commit();
         });
 
         return view;

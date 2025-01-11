@@ -13,6 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+
 import com.example.parking.R;
 import java.util.Arrays;
 
@@ -87,18 +90,13 @@ public class ParkSelectionFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getContext(), "City: " + selectParkView.getSelectedCity() + ", Park: " + selectParkView.getSelectedPark(), Toast.LENGTH_SHORT).show();
-                ParkingSimulatorFragment sim = new ParkingSimulatorFragment();
 
                 Bundle args = new Bundle(); // used to pass arguments to another fragment.
                 args.putString("city", selectParkView.getSelectedCity());
                 args.putString("park", selectParkView.getSelectedPark());
 
-                sim.setArguments(args);
-
-                requireActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.container, sim) // `R.id.fragment_container` should be the container for fragments in your activity layout
-                        .addToBackStack(null) // Optional: Add to back stack so user can navigate back
-                        .commit();
+                NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
+                navController.navigate(R.id.from_park_selection_to_simulator, args);
             }
         });
 
