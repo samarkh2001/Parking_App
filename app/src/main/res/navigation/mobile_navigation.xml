@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_signup_login_fragment">
 
     <fragment
         android:id="@+id/navigation_home"
@@ -12,17 +12,86 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
+        android:id="@+id/navigation_parking_simulator"
+        android:name="com.example.parking.ui.parking.ParkingSimulatorFragment"
+        android:label="@string/parking_simulator"
+        tools:layout="@layout/parking_simulator_layout">
+
+    </fragment>
+
+    <fragment
         android:id="@+id/navigation_park_selection"
-        android:name="com.example.parking.ui.parking.SignupLoginFragment"
+        android:name="com.example.parking.ui.parking.ParkSelectionFragment"
         android:label="@string/title_park_selection"
-        tools:layout="@layout/fragment_park_selection"
-        />
+        tools:layout="@layout/fragment_park_selection">
+
+        <action
+            android:id="@+id/from_park_selection_to_simulator"
+            app:destination="@id/navigation_parking_simulator"
+            />
+        <action
+            android:id="@+id/from_park_selection_to_signup_login"
+            app:destination="@id/navigation_signup_login_fragment"
+            />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_profile"
         android:name="com.example.parking.ui.profile.ProfileFragment"
         android:label="@string/Profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/from_profile_to_signup_login"
+            app:destination="@id/navigation_signup_login_fragment"
+            />
+    </fragment>
 
+    <fragment
+        android:id="@+id/navigation_signup"
+        android:name="com.example.parking.ui.user.SignupFragment"
+        android:label="@string/sign_up"
+        tools:layout="@layout/signup_fragment">
+        <action
+            android:id="@+id/from_signup_to_login"
+            app:destination="@id/navigation_log_in"
+            />
+        <action
+            android:id="@+id/from_signup_to_parking"
+            app:destination="@id/navigation_park_selection"
+            />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/navigation_log_in"
+        android:name="com.example.parking.ui.user.LoginFragment"
+        android:label="@string/login"
+        tools:layout="@layout/login_fragment">
+        <action
+            android:id="@+id/from_login_to_parking"
+            app:destination="@id/navigation_park_selection"
+            />
+
+        <action
+            android:id="@+id/from_login_to_signup"
+            app:destination="@id/navigation_signup"
+            />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_signup_login_fragment"
+        android:name="com.example.parking.ui.parking.SignupLoginFragment"
+        android:label="@string/profile"
+        tools:layout="@layout/fragment_signup_login">
+
+        <action
+            android:id="@+id/action_to_sign_up"
+            app:destination="@id/navigation_signup"
+            />
+        <action
+            android:id="@+id/action_to_log_in"
+            app:destination="@id/navigation_log_in"
+            />
+    </fragment>
 
 </navigation>
