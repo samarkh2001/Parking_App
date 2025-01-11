@@ -43,15 +43,6 @@ public class ParkSelectionFragment extends Fragment {
         parksSpinner = view.findViewById(R.id.parks_list);
         Button continueBtn = view.findViewById(R.id.continue_btn);
 
-        Button backButton = view.findViewById(R.id.back_signup_login);
-        backButton.setOnClickListener(v -> {
-            requireActivity().getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container, new SignupLoginFragment()) // `R.id.fragment_container` should be the container for fragments in your activity layout
-                    .addToBackStack(null) // Optional: Add to back stack so user can navigate back
-                    .commit();
-        });
-
-
         /*
          * temp - delete later
          * */
