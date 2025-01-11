@@ -15,12 +15,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-
 import com.example.parking.R;
 import com.example.parking.client.Client;
-import com.example.parking.ui.parking.ParkSelectionFragment;
-import com.example.parking.ui.parking.SignupLoginFragment;
-
 import commons.entities.User;
 import commons.requests.Message;
 import commons.requests.RequestType;
@@ -42,14 +38,6 @@ public class LoginFragment extends Fragment {
         // Initialize ViewModel
         loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
 
-        // Back button
-        Button backButton = view.findViewById(R.id.back_button);
-        backButton.setOnClickListener(v -> {
-            requireActivity().getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container, new SignupLoginFragment())
-                    .addToBackStack(null)
-                    .commit();
-        });
 
         // Login button
         Button loginButton = view.findViewById(R.id.login_button);
