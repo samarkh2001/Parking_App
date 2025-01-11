@@ -81,7 +81,7 @@
     <fragment
         android:id="@+id/navigation_signup_login_fragment"
         android:name="com.example.parking.ui.parking.SignupLoginFragment"
-        android:label="@string/profile"
+        android:label="Register Page"
         tools:layout="@layout/fragment_signup_login">
 
         <action

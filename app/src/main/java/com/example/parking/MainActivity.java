@@ -1,6 +1,7 @@
 package com.example.parking;
 
 import android.os.Bundle;
+import android.view.View;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -21,13 +22,27 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_park_selection, R.id.navigation_profile)
-                .build();
+
+        // Set up navigation controller
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
+
+        // Top-level destinations (these will always show the BottomNavigationView)
+        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.navigation_home, R.id.navigation_park_selection, R.id.navigation_profile, R.id.navigation_signup_login_fragment, R.id.navigation_signup, R.id.navigation_log_in)
+                .build();
+
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
+
+        // Hide BottomNavigationView for specific fragments
+        navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
+            if (destination.getId() == R.id.navigation_signup_login_fragment ||
+                    destination.getId() == R.id.navigation_signup ||
+                    destination.getId() == R.id.navigation_log_in) {
+                navView.setVisibility(View.GONE); // Hide BottomNavigationView
+            } else {
+                navView.setVisibility(View.VISIBLE); // Show BottomNavigationView
+            }
+        });
     }
 }
