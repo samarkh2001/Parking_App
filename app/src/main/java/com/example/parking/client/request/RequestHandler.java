@@ -2,6 +2,7 @@ package com.example.parking.client.request;
 
 import com.example.parking.client.Client;
 import com.example.parking.ui.parking.ParkData;
+import com.example.parking.ui.parking.ParkingSimulatorFragment;
 
 import java.util.HashMap;
 import java.util.List;
@@ -37,6 +38,11 @@ public class RequestHandler {
                     ParkData.PARKS = (HashMap<String, List<Park>>) msg.getResponse();
                 }else
                     Client.debug("RequestHandler@GET_PARKS", "Invalid response type.");
+                return;
+            case GET_PARK_SLOTS:
+                if (msg.isSuccess() && msg.getResponse() instanceof Park){
+                    ParkingSimulatorFragment.park = (Park)msg.getResponse();
+                }
                 return;
             case INVALID_DATATYPE:
                 return;

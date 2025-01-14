@@ -63,5 +63,6 @@
     <string name="_10_30_am">10:30 AM</string>
     <string name="payment_cost">Payment Cost:</string>
     <string name="_10_00">$10.00</string>
+    <string name="unavailable_slots">UnAvailable Slots</string>
 
 </resources>

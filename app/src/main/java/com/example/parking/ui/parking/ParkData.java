@@ -7,24 +7,12 @@ import java.util.List;
 import java.util.Map;
 
 import commons.entities.Park;
+import commons.entities.Slot;
 
 public class ParkData {
     public static List<String> CITIES;
     public static Map<String, List<String>> PARK_MAP = new HashMap<>();
-
     public static Map<String, List<Park>> PARKS;
-
-    public static int[][] slots = {
-//            {-1, -1, 0, -1, -1},
-//            {-1, 1, 0, 1, -1},
-//            {0, 1, 1, 0, 1},
-//            {1, 0, 0, 1, 1},
-//            {-1, 0, 1, 1, -1}
-            {0, 1, 1, 0},
-            {1, 0, 0, 1},
-            {0, 1, 0, 1},
-            {1, 0, 1, 1}
-    };
 
     public static int[] findClosestSlot(int[][] slots) {
         int[] closestSlot = new int[2];
