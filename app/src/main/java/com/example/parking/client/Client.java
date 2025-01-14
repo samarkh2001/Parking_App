@@ -44,7 +44,7 @@ public class Client extends AbstractClient {
                 openConnection();//in order to send a message
                 connected = true;
                 awaitResponse = true;
-
+                debug("Client@sendMessageToServer", "opened connection");
                 sendToServer(message);
                 debug("Client@sendMessageToServer", "sent message to server");
                 int loops = 0;

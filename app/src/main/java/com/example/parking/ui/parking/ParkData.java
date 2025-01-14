@@ -1,13 +1,18 @@
 package com.example.parking.ui.parking;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import commons.entities.Park;
+
 public class ParkData {
-    public static List<String> CITIES = Arrays.asList("city1", "city2", "city3");
+    public static List<String> CITIES;
     public static Map<String, List<String>> PARK_MAP = new HashMap<>();
+
+    public static Map<String, List<Park>> PARKS;
 
     public static int[][] slots = {
 //            {-1, -1, 0, -1, -1},
