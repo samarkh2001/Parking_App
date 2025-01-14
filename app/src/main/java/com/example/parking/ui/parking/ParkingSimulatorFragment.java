@@ -19,7 +19,13 @@ import androidx.navigation.Navigation;
 import com.example.parking.R;
 import com.example.parking.client.Client;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Locale;
+
 import commons.entities.Park;
+import commons.entities.Slot;
 import commons.requests.Message;
 import commons.requests.RequestType;
 
@@ -27,6 +33,7 @@ import commons.requests.RequestType;
 public class ParkingSimulatorFragment extends Fragment {
 
     public static Park park;
+    public static boolean reserveSuccess = false;
 
     @Nullable
     @Override
@@ -59,6 +66,7 @@ public class ParkingSimulatorFragment extends Fragment {
 
        }else{
            park = null;
+           reserveSuccess = false;
            String city = getArguments().getString("city") + ",";
            String parkText = getArguments().getString("park") + ".";
 
@@ -106,9 +114,10 @@ public class ParkingSimulatorFragment extends Fragment {
                        slotImageView.setClickable(true);
                        int finalI = i;
                        int finalJ = j;
-                       slotImageView.setOnClickListener(v -> {
-                           showConfirmationDialog(finalI, finalJ);
-                       });
+                       String finalParkText = parkText;
+                       String finalCity = city;
+                       slotImageView.setOnClickListener(v ->
+                               showConfirmationDialog(finalCity, finalParkText, finalI, finalJ));
                    } else if (!park.getSlots()[i][j].isDisabled()){
                        taken++;
                        slotImageView.setImageResource(R.drawable.taken_slot);  // Red square for taken
@@ -152,15 +161,34 @@ public class ParkingSimulatorFragment extends Fragment {
         return view;
     }
 
-    private void showConfirmationDialog(int i, int j) {
+    private void showConfirmationDialog(String city, String park, int i, int j) {
         // Create an AlertDialog
         new AlertDialog.Builder(requireContext())
                 .setTitle("Confirm Action")
                 .setMessage("Do you want to select the slot at position (" + i + ", " + j + ")?")
                 .setPositiveButton("Yes", (dialog, which) -> {
                     // Handle the positive action
-                    //Log.d("Slot Selected", "User selected slot at position (" + i + ", " + j + ")");
-                    Toast.makeText(requireContext(), "Slot selected at (" + i + ", " + j + ")", Toast.LENGTH_SHORT).show();
+                    Calendar calendar = Calendar.getInstance();
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                    String currentDate = dateFormat.format(calendar.getTime());
+
+                    Slot s = new Slot(-1, i, j, currentDate, 1, 1, false);
+                    s.setPark(new Park(city, park));
+
+                    Client.forceWait = true;
+                    Client.getClient().sendMessageToServer(new Message(RequestType.RESERVE_SLOT, s));
+                    while(Client.forceWait){
+                        System.out.print("");
+                    }
+
+                    if (reserveSuccess){
+                        Bundle args = new Bundle(); // used to pass arguments to another fragment.
+                        args.putString("city", city);
+                        args.putString("park", park);
+                        NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
+                        navController.navigate(R.id.refresh_simulator, args);
+                    }
+
                 })
                 .setNegativeButton("No", (dialog, which) -> {
                     // Handle the negative action (if needed)

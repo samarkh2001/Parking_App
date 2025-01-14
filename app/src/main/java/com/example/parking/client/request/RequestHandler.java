@@ -44,6 +44,9 @@ public class RequestHandler {
                     ParkingSimulatorFragment.park = (Park)msg.getResponse();
                 }
                 return;
+            case RESERVE_SLOT:
+                ParkingSimulatorFragment.reserveSuccess = msg.isSuccess();
+                return;
             case INVALID_DATATYPE:
                 return;
             default:
