@@ -1,5 +1,6 @@
 package com.example.parking.ui.parking;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -101,6 +102,13 @@ public class ParkingSimulatorFragment extends Fragment {
                            slotImageView.setImageResource(R.drawable.ideal_slot);
                         else
                             slotImageView.setImageResource(R.drawable.avbl_slot);  // Green square for available
+
+                       slotImageView.setClickable(true);
+                       int finalI = i;
+                       int finalJ = j;
+                       slotImageView.setOnClickListener(v -> {
+                           showConfirmationDialog(finalI, finalJ);
+                       });
                    } else if (!park.getSlots()[i][j].isDisabled()){
                        taken++;
                        slotImageView.setImageResource(R.drawable.taken_slot);  // Red square for taken
@@ -143,4 +151,22 @@ public class ParkingSimulatorFragment extends Fragment {
 
         return view;
     }
+
+    private void showConfirmationDialog(int i, int j) {
+        // Create an AlertDialog
+        new AlertDialog.Builder(requireContext())
+                .setTitle("Confirm Action")
+                .setMessage("Do you want to select the slot at position (" + i + ", " + j + ")?")
+                .setPositiveButton("Yes", (dialog, which) -> {
+                    // Handle the positive action
+                    //Log.d("Slot Selected", "User selected slot at position (" + i + ", " + j + ")");
+                    Toast.makeText(requireContext(), "Slot selected at (" + i + ", " + j + ")", Toast.LENGTH_SHORT).show();
+                })
+                .setNegativeButton("No", (dialog, which) -> {
+                    // Handle the negative action (if needed)
+                    dialog.dismiss();
+                })
+                .show();
+    }
+
 }
