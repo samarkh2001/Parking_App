@@ -17,6 +17,10 @@
         android:label="@string/parking_simulator"
         tools:layout="@layout/parking_simulator_layout">
 
+        <action
+            android:id="@+id/from_simulator_to_selection"
+            app:destination="@id/navigation_park_selection"/>
+
     </fragment>
 
     <fragment

@@ -19,7 +19,14 @@ import androidx.navigation.Navigation;
 import com.example.parking.R;
 import com.example.parking.client.Client;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+
+import commons.entities.Park;
+import commons.requests.Message;
+import commons.requests.RequestType;
 
 
 public class ParkSelectionFragment extends Fragment {
@@ -37,6 +44,14 @@ public class ParkSelectionFragment extends Fragment {
             return null;
         }
 
+        Client.forceWait = true;
+        Client.getClient().sendMessageToServer(new Message(RequestType.GET_PARKS));
+        while(Client.forceWait){
+            System.out.print("");
+        }
+
+        Client.debug("ParkSelectionFragment@CreateFragment", "Fetched all parks");
+
         View view = inflater.inflate(R.layout.fragment_park_selection, container, false);
         selectParkView = new ViewModelProvider(this).get(ParkSelectionView.class);
         Spinner citySpinner = view.findViewById(R.id.cityList);
@@ -44,13 +59,27 @@ public class ParkSelectionFragment extends Fragment {
         Button continueBtn = view.findViewById(R.id.continue_btn);
 
         /*
-         * temp - delete later
+         * Initiating cities and parks
          * */
-        for (int i = 0; i < ParkData.CITIES.size(); i++){
-            ParkData.PARK_MAP.put(ParkData.CITIES.get(i), Arrays.asList("park"+(i+1)+"1", "park"+(i+1)+"2", "park"+(i+1)+"3"));
+        if (ParkData.PARKS == null || ParkData.PARKS.keySet().isEmpty()){
+            Toast.makeText(getContext(), "Error loading data...", Toast.LENGTH_SHORT).show();
+            Client.debug("ParkSelectionFragment@CreateFragment", "Parks were null");
+            NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
+            navController.navigate(R.id.from_park_selection_to_signup_login);
+            return null;
         }
 
-        // End of temp
+        ParkData.CITIES = new ArrayList<>();
+        for (String city : ParkData.PARKS.keySet()){
+            ParkData.CITIES.add(city);
+            List<String> parkNames = new ArrayList<>();
+            for (Park p : Objects.requireNonNull(ParkData.PARKS.get(city))){
+                parkNames.add(p.getParkName());
+            }
+            ParkData.PARK_MAP.put(city, parkNames);
+        }
+
+        // End of initiating process
         ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, ParkData.CITIES);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         citySpinner.setAdapter(adapter);
