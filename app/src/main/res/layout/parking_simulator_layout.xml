@@ -115,58 +115,6 @@
         app:srcCompat="@drawable/right_arrow" />
 
     <ImageView
-        android:id="@+id/arrow_down_90"
-        android:layout_width="wrap_content"
-        android:layout_height="24dp"
-        android:layout_marginStart="32dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.009"
-        app:layout_constraintStart_toEndOf="@+id/exit_block"
-        app:layout_constraintTop_toBottomOf="@+id/arrow_down_80"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/arrow_down" />
-
-    <ImageView
-        android:id="@+id/arrow_down_80"
-        android:layout_width="wrap_content"
-        android:layout_height="24dp"
-        android:layout_marginStart="32dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.009"
-        app:layout_constraintStart_toEndOf="@+id/exit_block"
-        app:layout_constraintTop_toBottomOf="@+id/arrow_down_70"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/arrow_down" />
-
-    <ImageView
-        android:id="@+id/arrow_down_70"
-        android:layout_width="wrap_content"
-        android:layout_height="24dp"
-        android:layout_marginStart="32dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.009"
-        app:layout_constraintStart_toEndOf="@+id/exit_block"
-        app:layout_constraintTop_toBottomOf="@+id/arrow_down_60"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/arrow_down" />
-
-    <ImageView
-        android:id="@+id/arrow_down_60"
-        android:layout_width="wrap_content"
-        android:layout_height="24dp"
-        android:layout_marginStart="32dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.009"
-        app:layout_constraintStart_toEndOf="@+id/exit_block"
-        app:layout_constraintTop_toBottomOf="@+id/arrow_down_50"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/arrow_down" />
-
-    <ImageView
         android:id="@+id/park26"
         android:layout_width="37dp"
         android:layout_height="51dp"
@@ -265,19 +213,6 @@
         app:layout_constraintVertical_bias="0.103" />
 
     <ImageView
-        android:id="@+id/arrow_down_50"
-        android:layout_width="wrap_content"
-        android:layout_height="24dp"
-        android:layout_marginStart="32dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.009"
-        app:layout_constraintStart_toEndOf="@+id/exit_block"
-        app:layout_constraintTop_toBottomOf="@+id/arrow_down_40"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/arrow_down" />
-
-    <ImageView
         android:id="@+id/arrow_right_11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -288,32 +223,6 @@
         app:layout_constraintTop_toBottomOf="@+id/park10"
         app:layout_constraintVertical_bias="0.027"
         app:srcCompat="@drawable/right_arrow" />
-
-    <ImageView
-        android:id="@+id/arrow_down_40"
-        android:layout_width="wrap_content"
-        android:layout_height="24dp"
-        android:layout_marginStart="32dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.009"
-        app:layout_constraintStart_toEndOf="@+id/exit_block"
-        app:layout_constraintTop_toBottomOf="@+id/arrow_down_30"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/arrow_down" />
-
-    <ImageView
-        android:id="@+id/arrow_down_30"
-        android:layout_width="wrap_content"
-        android:layout_height="24dp"
-        android:layout_marginStart="32dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.009"
-        app:layout_constraintStart_toEndOf="@+id/exit_block"
-        app:layout_constraintTop_toBottomOf="@+id/arrow_down_20"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/arrow_down" />
 
     <Button
         android:id="@+id/back_park"
@@ -473,29 +382,30 @@
 
     <ImageView
         android:id="@+id/exit_block"
-        android:layout_width="7dp"
-        android:layout_height="50dp"
+        android:layout_width="50dp"
+        android:layout_height="7dp"
         android:layout_marginStart="15dp"
         android:layout_marginTop="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.01"
+        app:layout_constraintHorizontal_bias="0.985"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/enter_block"
-        app:layout_constraintVertical_bias="0.023"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.109"
         app:srcCompat="@drawable/car_block_closed" />
 
     <TextView
         android:id="@+id/exit_linear_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="E\nX\nI\nT"
-        app:layout_constraintBottom_toTopOf="@+id/textView5"
-        app:layout_constraintEnd_toStartOf="@+id/exit_block"
-        app:layout_constraintHorizontal_bias="0.294"
+        android:text="@string/exit"
+        android:textColor="#F00606"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.958"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/enter_block"
-        app:layout_constraintVertical_bias="0.01999998" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.089" />
 
     <ImageView
         android:id="@+id/enter_block"
@@ -652,32 +562,19 @@
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/arrow_down" />
 
-    <ImageView
-        android:id="@+id/arrow_down_20"
-        android:layout_width="wrap_content"
-        android:layout_height="24dp"
-        android:layout_marginStart="32dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.009"
-        app:layout_constraintStart_toEndOf="@+id/exit_block"
-        app:layout_constraintTop_toBottomOf="@+id/arrow_down_10"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/arrow_down" />
 
     <ImageView
         android:id="@+id/park10"
         android:layout_width="37dp"
         android:layout_height="51dp"
-        android:layout_marginEnd="292dp"
         android:background="@drawable/parking_spot_border"
         android:contentDescription="@string/park_spot"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/exit_linear_text"
+        app:layout_constraintHorizontal_bias="0.219"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/arrow_down_10"
-        app:layout_constraintVertical_bias="0.004" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/park11"
