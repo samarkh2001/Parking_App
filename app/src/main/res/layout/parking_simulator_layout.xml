@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -35,31 +36,18 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
-    <androidx.gridlayout.widget.GridLayout
-        android:id="@+id/gridSlots"
-        android:layout_width="369dp"
-        android:layout_height="512dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layoutTitle"
-        app:layout_constraintVertical_bias="0.342">
-
-    </androidx.gridlayout.widget.GridLayout>
-
     <TextView
         android:id="@+id/cityText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/place_holder"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/gridSlots"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.134"
+        app:layout_constraintHorizontal_bias="0.116"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layoutTitle"
-        app:layout_constraintVertical_bias="0.666" />
+        app:layout_constraintVertical_bias="0.054" />
 
     <TextView
         android:id="@+id/parkText"
@@ -68,12 +56,12 @@
         android:layout_marginStart="5dp"
         android:text="@string/place_holder"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/gridSlots"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.035"
+        app:layout_constraintHorizontal_bias="0.111"
         app:layout_constraintStart_toEndOf="@+id/cityText"
         app:layout_constraintTop_toBottomOf="@+id/layoutTitle"
-        app:layout_constraintVertical_bias="0.69" />
+        app:layout_constraintVertical_bias="0.054" />
 
     <TextView
         android:id="@+id/textView5"
@@ -83,10 +71,10 @@
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.061"
+        app:layout_constraintHorizontal_bias="0.084"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gridSlots"
-        app:layout_constraintVertical_bias="0.128" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.802" />
 
     <TextView
         android:id="@+id/textView6"
@@ -99,7 +87,7 @@
         app:layout_constraintHorizontal_bias="0.057"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5"
-        app:layout_constraintVertical_bias="0.636" />
+        app:layout_constraintVertical_bias="0.351" />
 
     <TextView
         android:id="@+id/avbl_slots"
@@ -110,10 +98,10 @@
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.299"
+        app:layout_constraintHorizontal_bias="0.56"
         app:layout_constraintStart_toEndOf="@+id/textView5"
-        app:layout_constraintTop_toBottomOf="@+id/gridSlots"
-        app:layout_constraintVertical_bias="0.128" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.77" />
 
     <TextView
         android:id="@+id/taken_slots"
@@ -124,39 +112,10 @@
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.35"
+        app:layout_constraintHorizontal_bias="0.592"
         app:layout_constraintStart_toEndOf="@+id/textView6"
         app:layout_constraintTop_toBottomOf="@+id/avbl_slots"
-        app:layout_constraintVertical_bias="0.636" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="29dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="6dp"
-        android:layout_marginEnd="7dp"
-        android:contentDescription="@string/park_entry"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/gridSlots"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cityText"
-        app:layout_constraintVertical_bias="0.045"
-        app:srcCompat="@drawable/arrow_forward" />
-
-    <Button
-        android:id="@+id/paymentBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="296dp"
-        android:layout_marginTop="637dp"
-        android:layout_marginEnd="21dp"
-        android:layout_marginBottom="46dp"
-        android:text="@string/payment"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintVertical_bias="0.364" />
 
     <TextView
         android:id="@+id/textView"
@@ -168,10 +127,10 @@
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/textView6"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.064"
+        app:layout_constraintHorizontal_bias="0.054"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.188" />
 
     <TextView
         android:id="@+id/unavbl_slots"
@@ -184,8 +143,73 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/taken_slots"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.261"
+        app:layout_constraintHorizontal_bias="0.543"
         app:layout_constraintStart_toEndOf="@+id/textView"
         app:layout_constraintTop_toBottomOf="@+id/avbl_slots"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.428" />
+
+    <ImageView
+        android:id="@+id/car"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView5"
+        app:layout_constraintEnd_toStartOf="@+id/enter_block"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cityText"
+        app:layout_constraintVertical_bias="0.166"
+        app:srcCompat="@drawable/car" />
+
+    <ImageView
+        android:id="@+id/exit_block"
+        android:layout_width="7dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.01"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enter_block"
+        app:layout_constraintVertical_bias="0.023"
+        app:srcCompat="@drawable/car_block_closed" />
+
+    <ImageView
+        android:id="@+id/enter_block"
+        android:layout_width="7dp"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.13"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cityText"
+        app:layout_constraintVertical_bias="0.103"
+        app:srcCompat="@drawable/car_block_closed" />
+
+    <ImageView
+        android:id="@+id/park00"
+        android:layout_width="37dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/enter_block"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.033"
+        app:layout_constraintStart_toEndOf="@+id/enter_block"
+        app:layout_constraintTop_toBottomOf="@+id/parkText"
+        app:layout_constraintVertical_bias="0.125" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="E\nX\nI\nT"
+        app:layout_constraintBottom_toTopOf="@+id/textView5"
+        app:layout_constraintEnd_toStartOf="@+id/exit_block"
+        app:layout_constraintHorizontal_bias="0.294"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enter_block"
+        app:layout_constraintVertical_bias="0.01999998" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
