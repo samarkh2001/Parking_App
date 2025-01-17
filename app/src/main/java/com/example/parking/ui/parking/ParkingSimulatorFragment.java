@@ -1,5 +1,6 @@
 package com.example.parking.ui.parking;
 
+import android.animation.ObjectAnimator;
 import android.app.AlertDialog;
 import android.media.Image;
 import android.os.Bundle;
@@ -80,6 +81,7 @@ public class ParkingSimulatorFragment extends Fragment {
            }
 
            initSlots(view);
+           moveCar(view);
 
        }
 
@@ -141,6 +143,28 @@ public class ParkingSimulatorFragment extends Fragment {
             for (int j = 0; j < park.getSlots()[0].length; j++)
                 slots[i][j].setVisibility(TextView.VISIBLE);
 
+    }
+
+    private void moveCar(View view){
+        if (view == null)
+            return;
+        new Thread(() -> {
+            try {
+                System.out.println("Start sleep");
+                Thread.sleep(5000);
+                System.out.println("Start animation");
+
+                // Run UI-related code on the main thread
+                requireActivity().runOnUiThread(() -> {
+                    ImageView car = view.findViewById(R.id.car);
+                    ObjectAnimator animatorX = ObjectAnimator.ofFloat(car, "x", car.getX(), slots[0][6].getX());
+                    animatorX.setDuration(5000);
+                    animatorX.start();
+                });
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }).start();
 
 
 
