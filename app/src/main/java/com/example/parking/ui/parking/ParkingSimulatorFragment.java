@@ -1,6 +1,7 @@
 package com.example.parking.ui.parking;
 
 import android.app.AlertDialog;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +35,7 @@ public class ParkingSimulatorFragment extends Fragment {
 
     public static Park park;
     public static boolean reserveSuccess = false;
+    private static ImageView[][] slots;
 
     @Nullable
     @Override
@@ -77,6 +79,8 @@ public class ParkingSimulatorFragment extends Fragment {
                return null;
            }
 
+           initSlots(view);
+
        }
 
         return view;
@@ -116,6 +120,30 @@ public class ParkingSimulatorFragment extends Fragment {
                     dialog.dismiss();
                 })
                 .show();
+    }
+
+    private void initSlots(View view){
+        if (park == null || view == null)
+            return;
+        slots = new ImageView[][]{
+                {view.findViewById(R.id.park00), view.findViewById(R.id.park01), view.findViewById(R.id.park02), view.findViewById(R.id.park03), view.findViewById(R.id.park04), view.findViewById(R.id.park05), view.findViewById(R.id.park06)},
+                {view.findViewById(R.id.park10), view.findViewById(R.id.park11), view.findViewById(R.id.park12), view.findViewById(R.id.park13), view.findViewById(R.id.park14), view.findViewById(R.id.park15), view.findViewById(R.id.park16)},
+                {view.findViewById(R.id.park20), view.findViewById(R.id.park21), view.findViewById(R.id.park22), view.findViewById(R.id.park23), view.findViewById(R.id.park24), view.findViewById(R.id.park25), view.findViewById(R.id.park26)},
+                {view.findViewById(R.id.park30), view.findViewById(R.id.park31), view.findViewById(R.id.park32), view.findViewById(R.id.park33), view.findViewById(R.id.park34), view.findViewById(R.id.park35), view.findViewById(R.id.park36)}
+        };
+
+        // resetting slots
+        for (int i = 0; i < 4; i++)
+            for (int j = 0; j < 7; j++)
+                slots[i][j].setVisibility(TextView.INVISIBLE);
+
+        for (int i = 0; i < park.getSlots().length; i++)
+            for (int j = 0; j < park.getSlots()[0].length; j++)
+                slots[i][j].setVisibility(TextView.VISIBLE);
+
+
+
+
     }
 
 }
