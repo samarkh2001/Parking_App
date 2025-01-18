@@ -7,10 +7,14 @@ public class ParkingSlot {
     private int row;
     private int col;
 
+    private long timeOfEntry;
+    private int entryHour, entryMin;
+
     public ParkingSlot(ImageView img, int row, int col){
         this.img = img;
         this.row = row;
         this.col = col;
+        timeOfEntry = -1;
     }
 
     public ImageView getImg() {
@@ -35,5 +39,33 @@ public class ParkingSlot {
 
     public void setCol(int col) {
         this.col = col;
+    }
+
+    public long getTimeOfEntry() {
+        return timeOfEntry;
+    }
+
+    public void setTimeOfEntry(long timeOfEntry) {
+        this.timeOfEntry = timeOfEntry;
+    }
+
+    public int getEntryHour() {
+        return entryHour;
+    }
+
+    public void setEntryHour(int entryHour) {
+        this.entryHour = entryHour;
+    }
+
+    public int getEntryMin() {
+        return entryMin;
+    }
+
+    public void setEntryMin(int entryMin) {
+        this.entryMin = entryMin;
+    }
+
+    public double getCost(){
+        return ((double) (System.currentTimeMillis() - timeOfEntry) /1000) * 0.75;
     }
 }

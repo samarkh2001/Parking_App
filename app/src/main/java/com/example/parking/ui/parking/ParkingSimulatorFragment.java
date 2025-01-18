@@ -3,8 +3,6 @@ package com.example.parking.ui.parking;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
-import android.app.AlertDialog;
-import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -24,15 +22,12 @@ import androidx.navigation.Navigation;
 import com.example.parking.R;
 import com.example.parking.client.Client;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 import java.util.Random;
 
 import commons.entities.Park;
-import commons.entities.Slot;
 import commons.requests.Message;
 import commons.requests.RequestType;
 
@@ -49,6 +44,8 @@ public class ParkingSimulatorFragment extends Fragment {
     private ViewGroup parentLayout;
     private final Handler handler = new Handler(Looper.getMainLooper());
     private final Random random = new Random();
+
+    private TextView entryStatus, exitStatus;
     private boolean canAcceptNewCar = true;
 
     @Nullable
@@ -93,7 +90,7 @@ public class ParkingSimulatorFragment extends Fragment {
                return null;
            }
 
-           initImageVariables(view);
+           initVariables(view);
 
            handler.post(carArrivalRunner);
            handler.post(carExitRunner);
@@ -133,7 +130,7 @@ public class ParkingSimulatorFragment extends Fragment {
             handler.postDelayed(this, delay);
         }
     };
-    private void initImageVariables(View view){
+    private void initVariables(View view){
         if (park == null || view == null)
             return;
 
@@ -144,6 +141,8 @@ public class ParkingSimulatorFragment extends Fragment {
         parentLayout = view.findViewById(R.id.mainFrame);
         entryBlock = view.findViewById(R.id.enter_block);
         exitBlock = view.findViewById(R.id.exit_block);
+        entryStatus = view.findViewById(R.id.entryStatus);
+        exitStatus = view.findViewById(R.id.exitStatus);
 
         slots = new ImageView[][]{
                 {view.findViewById(R.id.park00), view.findViewById(R.id.park01), view.findViewById(R.id.park02), view.findViewById(R.id.park03), view.findViewById(R.id.park04), view.findViewById(R.id.park05), view.findViewById(R.id.park06)},
@@ -223,6 +222,7 @@ public class ParkingSimulatorFragment extends Fragment {
                 parentLayout.addView(car);
 
                 entryBlock.setImageResource(R.drawable.car_block_closed);
+
             });
                 try {
                     Thread.sleep(2000);
@@ -278,6 +278,7 @@ public class ParkingSimulatorFragment extends Fragment {
                         exitBlock.postDelayed(() -> {
                             exitBlock.setImageResource(R.drawable.car_block_closed);
                             parent.removeView(exitingCar);
+                            slot.setTimeOfEntry(-1);
                             }, 1500);
                         }, 2500);
                 }
@@ -292,6 +293,14 @@ public class ParkingSimulatorFragment extends Fragment {
         requireActivity().runOnUiThread(()->{
             entryBlock.setImageResource(R.drawable.car_block_open);
         });
+        Calendar calendar = Calendar.getInstance();
+        int currentHour = calendar.get(Calendar.HOUR_OF_DAY); // 24-hour format
+        int currentMinutes = calendar.get(Calendar.MINUTE);
+
+        toSlot.setEntryHour(currentHour);
+        toSlot.setEntryMin(currentMinutes);
+        toSlot.setTimeOfEntry(System.currentTimeMillis());
+
         if (toSlot.getRow() > 1){
             positionToY(toSlot, car);
         }else{
