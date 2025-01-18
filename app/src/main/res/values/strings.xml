@@ -66,5 +66,8 @@
     <string name="unavailable_slots">UnAvailable Slots</string>
     <string name="exit">EXIT</string>
     <string name="park_spot">Park spot</string>
+    <string name="arrow">arrow</string>
+    <string name="car">car</string>
+    <string name="block">block</string>
 
 </resources>

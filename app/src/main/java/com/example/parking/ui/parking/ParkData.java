@@ -10,24 +10,9 @@ public class ParkData {
     public static Map<String, List<String>> PARK_MAP = new HashMap<>();
     public static Map<String, List<Park>> PARKS;
 
-    public static int[] findClosestSlot(int[][] slots) {
-        int[] closestSlot = new int[2];
-        int minDistance = Integer.MAX_VALUE;
-
-        for (int i = 0; i < slots.length; i++) {
-            for (int j = 0; j < slots[i].length; j++) {
-                if (slots[i][j] == 1) {
-                    int distance = i + j;
-
-                    if (distance < minDistance) {
-                        minDistance = distance;
-                        closestSlot[0] = i;
-                        closestSlot[1] = j;
-                    }
-                }
-            }
-        }
-
-        return closestSlot;
-    }
+    public static final float CAR_START_X = (float) -3.0;
+    public static final float CAR_START_Y = 448.0F;
+    public static final float LANE_3_Y = 992.0F;
+    public static final float LANE_2_Y = 740.0F;
+    public static final float LANE_1_Y = 448.0F;
 }
