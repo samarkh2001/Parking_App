@@ -69,5 +69,8 @@
     <string name="arrow">arrow</string>
     <string name="car">car</string>
     <string name="block">block</string>
+    <string name="ticket">Ticket</string>
+    <string name="parking_cost">Cost:</string>
+    <string name="arrival_time">Arrival Time</string>
 
 </resources>

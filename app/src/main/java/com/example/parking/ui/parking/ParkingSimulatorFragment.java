@@ -57,17 +57,12 @@ public class ParkingSimulatorFragment extends Fragment {
        }else{
            park = null;
            reserveSuccess = false;
-           String city = getArguments().getString("city") + ",";
-           String parkText = getArguments().getString("park") + ".";
 
-           cityView.setText(city);
-           parkView.setText(parkText);
-
-           city = getArguments().getString("city");
-           parkText = getArguments().getString("park");
+           String city = getArguments().getString("city");
+           String parkName = getArguments().getString("park");
 
            Client.forceWait = true;
-           Client.getClient().sendMessageToServer(new Message(RequestType.GET_PARK_SLOTS, new Park(city, parkText)));
+           Client.getClient().sendMessageToServer(new Message(RequestType.GET_PARK_SLOTS, new Park(city, parkName)));
            while(Client.forceWait){
                System.out.print("");
            }
@@ -80,7 +75,7 @@ public class ParkingSimulatorFragment extends Fragment {
                return null;
            }
 
-           initVariables(view);
+           initVariables(view, getArguments());
            blockHandler = new BlockHandler(getActivity(), view);
 
            blockHandler.initVariables(park);
@@ -121,7 +116,7 @@ public class ParkingSimulatorFragment extends Fragment {
             handler.postDelayed(this, delay);
         }
     };
-    private void initVariables(View view){
+    private void initVariables(View view, Bundle args){
         if (park == null || view == null)
             return;
         parentLayout = view.findViewById(R.id.mainFrame);
@@ -137,6 +132,14 @@ public class ParkingSimulatorFragment extends Fragment {
             for (int j = 0; j < 7; j++){
                 slots[i][j].setVisibility(TextView.INVISIBLE);
             }
+
+        TextView parkName = view.findViewById(R.id.park_name);
+        parkName.setText(args.getString("park"));
+
+        TextView cost = view.findViewById(R.id.cost);
+        String s = "25 cents/second";
+        cost.setText(s);
+
     }
 
     private void handleCarArrival(){

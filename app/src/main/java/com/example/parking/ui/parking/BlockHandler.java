@@ -12,7 +12,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentActivity;
+import androidx.gridlayout.widget.GridLayout;
 
 import com.example.parking.R;
 
@@ -198,6 +200,26 @@ public class BlockHandler {
                         parentLayout.removeView(car);
                         slot.getImg().setImageResource(R.drawable.car_going_down);
                         slot.getImg().setBackgroundResource(R.drawable.parking_spot_border_red);
+
+                        slot.getImg().setClickable(true);
+                        slot.getImg().setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                GridLayout grid = parentLayout.findViewById(R.id.grid);
+
+                                ConstraintLayout ticketLayout = grid.findViewById(R.id.ticket_layout);
+                                TextView arrivalTime = ticketLayout.findViewById(R.id.arrival_time);
+                                TextView slotData = ticketLayout.findViewById(R.id.slot_data);
+
+                                String time = slot.getEntryHour() + ":" + slot.getEntryMin();
+                                String data = "Coordinates - (" + slot.getRow() + ", " + slot.getCol() + ")";
+
+                                arrivalTime.setText(time);
+                                slotData.setText(data);
+                                ticketLayout.setVisibility(View.VISIBLE);
+                            }
+                        });
+
                         takenSpots.add(slot);
                     }, 1500);
                 }
@@ -289,6 +311,7 @@ public class BlockHandler {
             avblSpots.add(slot);
             activity.runOnUiThread(()->{
                 slot.getImg().setImageResource(0);
+                slot.getImg().setClickable(false);
                 slot.getImg().setBackgroundResource(R.drawable.parking_spot_border);
 
                 ImageView exitingCar = new ImageView(view.getContext());
