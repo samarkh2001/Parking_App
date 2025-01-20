@@ -5,6 +5,7 @@ import static com.example.parking.ui.parking.ParkingSimulatorFragment.slots;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
@@ -335,18 +336,30 @@ public class BlockHandler {
                 public void onAnimationEnd(Animator animation) {
                     // Change to yellow block
                     exitBlock.setImageResource(R.drawable.car_block_yellow);
-
-                    // Delay using postDelayed instead of Thread.sleep
-                    exitBlock.postDelayed(() -> {
-                        exitBlock.setImageResource(R.drawable.car_block_open);
-
-                        // Delay to close the block and remove the car
+                    String msg = "Reading ticket";
+                    exitStatus.setTextColor(Color.parseColor("#ebc334"));
+                    exitStatus.setText(msg);
+                    exitStatus.setVisibility(View.VISIBLE);
+                    exitBlock.postDelayed(()->{
+                        String msg2 = "Processing payment";
+                        exitStatus.setText(msg2);
+                        // Delay using postDelayed instead of Thread.sleep
                         exitBlock.postDelayed(() -> {
-                            exitBlock.setImageResource(R.drawable.car_block_closed);
-                            parent.removeView(exitingCar);
-                            slot.setTimeOfEntry(-1);
-                        }, 1500);
-                    }, 2500);
+                            exitBlock.setImageResource(R.drawable.car_block_open);
+                            @SuppressLint("DefaultLocale")
+                            String msg3 = String.format("%.2f$, Payment success", slot.getCost());
+                            exitStatus.setTextColor(Color.parseColor("#0da329"));
+                            exitStatus.setText(msg3);
+
+                            // Delay to close the block and remove the car
+                            exitBlock.postDelayed(() -> {
+                                exitBlock.setImageResource(R.drawable.car_block_closed);
+                                exitStatus.setVisibility(View.INVISIBLE);
+                                parent.removeView(exitingCar);
+                                slot.setTimeOfEntry(-1);
+                            }, 1500);
+                        }, 2500);
+                    }, 1500);
                 }
             });
             animatorY.start();

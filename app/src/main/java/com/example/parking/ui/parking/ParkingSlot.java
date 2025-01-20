@@ -66,6 +66,6 @@ public class ParkingSlot {
     }
 
     public double getCost(){
-        return ((double) (System.currentTimeMillis() - timeOfEntry) /1000) * 0.75;
+        return ((double) (System.currentTimeMillis() - timeOfEntry) /1000) * 0.25;
     }
 }
