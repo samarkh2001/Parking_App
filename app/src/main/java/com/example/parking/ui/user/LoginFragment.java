@@ -73,8 +73,8 @@ public class LoginFragment extends Fragment {
 
         // Validate password
         String password = passwordField.getText().toString();
-        if (TextUtils.isEmpty(password) || password.length() < 6) {
-            passwordField.setError("Password must be at least 6 characters");
+        if (TextUtils.isEmpty(password)) {
+            passwordField.setError("Enter a password");
             return false;
         }
 

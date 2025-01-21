@@ -64,5 +64,13 @@
     <string name="payment_cost">Payment Cost:</string>
     <string name="_10_00">$10.00</string>
     <string name="unavailable_slots">UnAvailable Slots</string>
+    <string name="exit">EXIT</string>
+    <string name="park_spot">Park spot</string>
+    <string name="arrow">arrow</string>
+    <string name="car">car</string>
+    <string name="block">block</string>
+    <string name="ticket">Ticket</string>
+    <string name="parking_cost">Cost:</string>
+    <string name="arrival_time">Arrival Time</string>
 
 </resources>

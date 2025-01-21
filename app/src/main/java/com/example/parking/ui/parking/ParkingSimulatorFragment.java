@@ -1,7 +1,8 @@
 package com.example.parking.ui.parking;
 
-import android.app.AlertDialog;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,20 +13,15 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.gridlayout.widget.GridLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.example.parking.R;
 import com.example.parking.client.Client;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.Locale;
+import java.util.Random;
 
 import commons.entities.Park;
-import commons.entities.Slot;
 import commons.requests.Message;
 import commons.requests.RequestType;
 
@@ -34,6 +30,13 @@ public class ParkingSimulatorFragment extends Fragment {
 
     public static Park park;
     public static boolean reserveSuccess = false;
+    public static ImageView[][] slots;
+
+    private ViewGroup parentLayout;
+    private final Handler handler = new Handler(Looper.getMainLooper());
+    private final Random random = new Random();
+    private BlockHandler blockHandler;
+    public static boolean canAcceptNewCar = true;
 
     @Nullable
     @Override
@@ -41,24 +44,11 @@ public class ParkingSimulatorFragment extends Fragment {
         View view = inflater.inflate(R.layout.parking_simulator_layout, container, false);
         TextView cityView = view.findViewById(R.id.cityText);
         TextView parkView = view.findViewById(R.id.parkText);
-        TextView avblSlots = view.findViewById(R.id.avbl_slots);
-        TextView takenSlots = view.findViewById(R.id.taken_slots);
-        TextView unAvblSlots = view.findViewById(R.id.unavbl_slots);
-
-        GridLayout grid = view.findViewById(R.id.gridSlots);
 
         Button backButton = view.findViewById(R.id.back_park);
         backButton.setOnClickListener(v -> {
             NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
             navController.navigate(R.id.from_simulator_to_selection);
-        });
-
-        Button paymentButton = view.findViewById(R.id.paymentBtn);
-        paymentButton.setOnClickListener(v -> {
-            requireActivity().getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container, new PaymentFragment()) // `R.id.fragment_container` should be the container for fragments in your activity layout
-                    .addToBackStack(null) // Optional: Add to back stack so user can navigate back
-                    .commit();
         });
 
        if (getArguments() == null){
@@ -67,17 +57,12 @@ public class ParkingSimulatorFragment extends Fragment {
        }else{
            park = null;
            reserveSuccess = false;
-           String city = getArguments().getString("city") + ",";
-           String parkText = getArguments().getString("park") + ".";
 
-           cityView.setText(city);
-           parkView.setText(parkText);
-
-           city = getArguments().getString("city");
-           parkText = getArguments().getString("park");
+           String city = getArguments().getString("city");
+           String parkName = getArguments().getString("park");
 
            Client.forceWait = true;
-           Client.getClient().sendMessageToServer(new Message(RequestType.GET_PARK_SLOTS, new Park(city, parkText)));
+           Client.getClient().sendMessageToServer(new Message(RequestType.GET_PARK_SLOTS, new Park(city, parkName)));
            while(Client.forceWait){
                System.out.print("");
            }
@@ -90,111 +75,87 @@ public class ParkingSimulatorFragment extends Fragment {
                return null;
            }
 
-           int rows = park.getSlots().length;
-           int cols = park.getSlots()[0].length;
+           initVariables(view, getArguments());
+           blockHandler = new BlockHandler(getActivity(), view);
 
-           int avbl = 0;
-           int taken = 0;
-           int unAvbl = 0;
+           blockHandler.initVariables(park);
 
-           grid.setRowCount(rows);
-           grid.setColumnCount(cols);
-           // Loop through each slot and create an ImageView dynamically
-           for (int i = 0; i < rows; i++) {
-               for (int j = 0; j < cols; j++) {
-                   ImageView slotImageView = new ImageView(requireContext());
-
-                   if (park.getSlots()[i][j] == null) {
-                       avbl++;
-                       if (i == 0 && j == 0)
-                           slotImageView.setImageResource(R.drawable.ideal_slot);
-                        else
-                            slotImageView.setImageResource(R.drawable.avbl_slot);  // Green square for available
-
-                       slotImageView.setClickable(true);
-                       int finalI = i;
-                       int finalJ = j;
-                       String finalParkText = parkText;
-                       String finalCity = city;
-                       slotImageView.setOnClickListener(v ->
-                               showConfirmationDialog(finalCity, finalParkText, finalI, finalJ));
-                   } else if (!park.getSlots()[i][j].isDisabled()){
-                       taken++;
-                       slotImageView.setImageResource(R.drawable.taken_slot);  // Red square for taken
-                   }else{
-                       slotImageView.setImageResource(R.drawable.unavbl_slot);  // Red square for taken
-                        unAvbl++;
-                   }
-
-
-                   // Set layout parameters (width and height for each slot)
-                   GridLayout.LayoutParams params = new GridLayout.LayoutParams();
-                   params.width = 200;
-                   params.height = 200;
-                   params.rowSpec = GridLayout.spec(i);
-                   params.columnSpec = GridLayout.spec(j);
-
-                   slotImageView.setLayoutParams(params);
-
-                   grid.addView(slotImageView);
-               }
-           }
-           StringBuilder sb = new StringBuilder();
-           sb.append(avbl);
-           sb.append(".");
-           if (avbl > 0)
-               avblSlots.setText(sb.toString());
-
-           sb = new StringBuilder();
-           sb.append(taken);
-           sb.append(".");
-           if (taken > 0)
-               takenSlots.setText(sb.toString());
-
-           sb = new StringBuilder();
-           sb.append(unAvbl);
-           sb.append(".");
-           if (unAvbl > 0)
-               unAvblSlots.setText(sb.toString());
+           handler.post(carArrivalRunner);
+           handler.post(carExitRunner);
        }
 
         return view;
     }
 
-    private void showConfirmationDialog(String city, String park, int i, int j) {
-        // Create an AlertDialog
-        new AlertDialog.Builder(requireContext())
-                .setTitle("Confirm Action")
-                .setMessage("Do you want to select the slot at position (" + i + ", " + j + ")?")
-                .setPositiveButton("Yes", (dialog, which) -> {
-                    // Handle the positive action
-                    Calendar calendar = Calendar.getInstance();
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-                    String currentDate = dateFormat.format(calendar.getTime());
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        // Remove all callbacks when the Fragment is destroyed to avoid memory leaks
+        handler.removeCallbacks(carArrivalRunner);
+        handler.removeCallbacks(carExitRunner);
+    }
 
-                    Slot s = new Slot(-1, i, j, currentDate, 1, 1, false);
-                    s.setPark(new Park(city, park));
+    private final Runnable carArrivalRunner = new Runnable() {
+        @Override
+        public void run() {
+            if (canAcceptNewCar)
+                handleCarArrival();
+            else
+                System.out.println("Can't accept car");
+            int delay = random.nextInt(3000) + 9000; // Random delay between 7-10 seconds (3000-7000ms)
+            handler.postDelayed(this, delay);
+        }
+    };
 
-                    Client.forceWait = true;
-                    Client.getClient().sendMessageToServer(new Message(RequestType.RESERVE_SLOT, s));
-                    while(Client.forceWait){
-                        System.out.print("");
-                    }
+    private final Runnable carExitRunner = new Runnable() {
+        @Override
+        public void run() {
+            blockHandler.handleCarExit();
 
-                    if (reserveSuccess){
-                        Bundle args = new Bundle(); // used to pass arguments to another fragment.
-                        args.putString("city", city);
-                        args.putString("park", park);
-                        NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
-                        navController.navigate(R.id.refresh_simulator, args);
-                    }
+            int delay = random.nextInt(3000) + 18000; // Random delay between 3-7 seconds (3000-7000ms)
+            handler.postDelayed(this, delay);
+        }
+    };
+    private void initVariables(View view, Bundle args){
+        if (park == null || view == null)
+            return;
+        parentLayout = view.findViewById(R.id.mainFrame);
+        slots = new ImageView[][]{
+                {view.findViewById(R.id.park00), view.findViewById(R.id.park01), view.findViewById(R.id.park02), view.findViewById(R.id.park03), view.findViewById(R.id.park04), view.findViewById(R.id.park05), view.findViewById(R.id.park06)},
+                {view.findViewById(R.id.park10), view.findViewById(R.id.park11), view.findViewById(R.id.park12), view.findViewById(R.id.park13), view.findViewById(R.id.park14), view.findViewById(R.id.park15), view.findViewById(R.id.park16)},
+                {view.findViewById(R.id.park20), view.findViewById(R.id.park21), view.findViewById(R.id.park22), view.findViewById(R.id.park23), view.findViewById(R.id.park24), view.findViewById(R.id.park25), view.findViewById(R.id.park26)},
+                {view.findViewById(R.id.park30), view.findViewById(R.id.park31), view.findViewById(R.id.park32), view.findViewById(R.id.park33), view.findViewById(R.id.park34), view.findViewById(R.id.park35), view.findViewById(R.id.park36)}
+        };
 
-                })
-                .setNegativeButton("No", (dialog, which) -> {
-                    // Handle the negative action (if needed)
-                    dialog.dismiss();
-                })
-                .show();
+        // resetting slots
+        for (int i = 0; i < 4; i++)
+            for (int j = 0; j < 7; j++){
+                slots[i][j].setVisibility(TextView.INVISIBLE);
+            }
+
+        TextView parkName = view.findViewById(R.id.park_name);
+        parkName.setText(args.getString("park"));
+
+        TextView cost = view.findViewById(R.id.cost);
+        String s = "25 cents/second";
+        cost.setText(s);
+
+    }
+
+    private void handleCarArrival(){
+        canAcceptNewCar = false;
+        new Thread(()->{
+            ImageView car = new ImageView(requireContext());
+            requireActivity().runOnUiThread(()->{
+                car.setX(ParkData.CAR_START_X);
+                car.setY(ParkData.CAR_START_Y);
+                car.setImageResource(R.drawable.car);
+                car.setVisibility(View.VISIBLE);
+
+                parentLayout.addView(car);
+            });
+            blockHandler.start(car);
+        }).start();
     }
 
 }
