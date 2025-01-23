@@ -36,7 +36,6 @@ public class ParkingSimulatorFragment extends Fragment {
     private final Handler handler = new Handler(Looper.getMainLooper());
     private final Random random = new Random();
     private BlockHandler blockHandler;
-    public static boolean canAcceptNewCar = true;
 
     @Nullable
     @Override
@@ -98,10 +97,12 @@ public class ParkingSimulatorFragment extends Fragment {
     private final Runnable carArrivalRunner = new Runnable() {
         @Override
         public void run() {
-            if (canAcceptNewCar)
+            if (blockHandler.canAcceptNewCar())
                 handleCarArrival();
-            else
+            else{
                 System.out.println("Can't accept car");
+                //
+            }
             int delay = random.nextInt(3000) + 9000; // Random delay between 7-10 seconds (3000-7000ms)
             handler.postDelayed(this, delay);
         }
@@ -143,7 +144,7 @@ public class ParkingSimulatorFragment extends Fragment {
     }
 
     private void handleCarArrival(){
-        canAcceptNewCar = false;
+        blockHandler.setCanAcceptNewCar(false);
         new Thread(()->{
             ImageView car = new ImageView(requireContext());
             requireActivity().runOnUiThread(()->{
