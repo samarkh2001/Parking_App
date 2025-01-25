@@ -37,6 +37,8 @@ public class BlockHandler {
     private final List<ParkingSlot> avblSpots = new ArrayList<>();
     private final List<ParkingSlot> takenSpots = new ArrayList<>();
 
+    private boolean canAcceptNewCar = false;
+
     public BlockHandler(FragmentActivity activity, View view){
         this.activity = activity;
         this.view = view;
@@ -63,7 +65,7 @@ public class BlockHandler {
                 slots[i][j].setVisibility(TextView.VISIBLE);
                 avblSpots.add(new ParkingSlot(slots[i][j], i, j));
             }
-        ParkingSimulatorFragment.canAcceptNewCar = true;
+        canAcceptNewCar = true;
     }
 
     public void start(ImageView car){
@@ -104,7 +106,7 @@ public class BlockHandler {
                     entryBlock.setImageResource(R.drawable.car_block_closed);
                     parentLayout.removeView(car);
                     entryStatus.setVisibility(View.INVISIBLE);
-                    ParkingSimulatorFragment.canAcceptNewCar = true;
+                    setCanAcceptNewCar(true);
                 });
             }, 2000);
          }
@@ -139,7 +141,6 @@ public class BlockHandler {
         });
 
         entryStatus.postDelayed(()->{
-            ParkingSimulatorFragment.canAcceptNewCar = true;
             entryStatus.setVisibility(View.INVISIBLE);
         }, 2000);
 
@@ -189,6 +190,7 @@ public class BlockHandler {
                 public void onAnimationStart(Animator animation){
                     if (slot.getRow() <= 1)
                         car.postDelayed(()->{
+                            setCanAcceptNewCar(true);
                             entryBlock.setImageResource(R.drawable.car_block_closed);
                         }, 1500);
                 }
@@ -264,6 +266,12 @@ public class BlockHandler {
             animatorY.setDuration((slot.getCol() + 1) * 1500L);
 
             animatorY.addListener(new AnimatorListenerAdapter() {
+
+                @Override
+                public void onAnimationStart(Animator animator){
+                    setCanAcceptNewCar(true);
+                }
+
                 @Override
                 public void onAnimationEnd(Animator animation) {
                     car.postDelayed(()->{
@@ -347,7 +355,6 @@ public class BlockHandler {
             });
         }).start();
     }
-
     private void carMoveToExit(ParkingSlot slot, ImageView exitingCar, ViewGroup parent){
         if (exitingCar == null)
             return;
@@ -388,4 +395,13 @@ public class BlockHandler {
             animatorY.start();
         });
     }
+
+    public synchronized boolean canAcceptNewCar(){
+        return canAcceptNewCar;
+    }
+
+    public synchronized  void setCanAcceptNewCar(boolean state){
+        canAcceptNewCar = state;
+    }
+
 }
