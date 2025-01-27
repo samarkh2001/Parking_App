@@ -17,13 +17,20 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.gridlayout.widget.GridLayout;
 
 import com.example.parking.R;
+import com.example.parking.client.Client;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 import commons.entities.Park;
+import commons.entities.Ticket;
+import commons.requests.Message;
+import commons.requests.RequestType;
 
 public class BlockHandler {
 
@@ -34,20 +41,22 @@ public class BlockHandler {
     private ViewGroup parentLayout;
     private final Random random;
 
+    private Park park;
+
     private final List<ParkingSlot> avblSpots = new ArrayList<>();
     private final List<ParkingSlot> takenSpots = new ArrayList<>();
 
     private boolean canAcceptNewCar = false;
 
-    public BlockHandler(FragmentActivity activity, View view){
+    public BlockHandler(FragmentActivity activity, View view, Park park){
         this.activity = activity;
         this.view = view;
-
+        this.park = park;
         this.random = new Random();
 
     }
 
-    public void initVariables(Park park){
+    public void initVariables(){
         entryBlock = view.findViewById(R.id.enter_block);
         exitBlock = view.findViewById(R.id.exit_block);
         entryStatus = view.findViewById(R.id.entryStatus);
@@ -152,6 +161,25 @@ public class BlockHandler {
         toSlot.setEntryMin(currentMinutes);
         toSlot.setTimeOfEntry(System.currentTimeMillis());
 
+        int min = 1111111;
+        int max = 99999999;
+
+        int plateId = random.nextInt(max - min + 1) + min;
+        String formattedPlate = String.valueOf(plateId);
+
+        String formattedNumber;
+        if (formattedPlate.length() == 7) {
+            formattedNumber = formattedPlate.substring(0, 2) + "-" +
+                    formattedPlate.substring(2, 5) + "-" +
+                    formattedPlate.substring(5);
+        } else { // length is 8
+            formattedNumber = formattedPlate.substring(0, 3) + "-" +
+                    formattedPlate.substring(3, 5) + "-" +
+                    formattedPlate.substring(5);
+        }
+
+        toSlot.setPlateId(formattedNumber);
+
         if (toSlot.getRow() > 1){
             positionToY(toSlot, car);
         }else{
@@ -212,9 +240,11 @@ public class BlockHandler {
                                 ConstraintLayout ticketLayout = grid.findViewById(R.id.ticket_layout);
                                 TextView arrivalTime = ticketLayout.findViewById(R.id.arrival_time);
                                 TextView slotData = ticketLayout.findViewById(R.id.slot_data);
+                                TextView plate = ticketLayout.findViewById(R.id.licensePlate);
 
                                 String time = slot.getEntryHour() + ":" + slot.getEntryMin();
                                 String data = "Coordinates - (" + slot.getRow() + ", " + slot.getCol() + ")";
+                                plate.setText(slot.getPlateId());
 
                                 arrivalTime.setText(time);
                                 slotData.setText(data);
@@ -306,7 +336,7 @@ public class BlockHandler {
             int carToLeave = random.nextInt(takenSpots.size());
             ParkingSlot ps = takenSpots.get(carToLeave);
 
-            if (System.currentTimeMillis() - ps.getTimeOfEntry() > 10000)
+            if (System.currentTimeMillis() - ps.getTimeOfEntry() > 60000)
                 startCarExit(ps);
         }
     }
@@ -376,6 +406,22 @@ public class BlockHandler {
                         // Delay using postDelayed instead of Thread.sleep
                         exitBlock.postDelayed(() -> {
                             exitBlock.setImageResource(R.drawable.car_block_open);
+                            Calendar calendar = Calendar.getInstance();
+                            int currentHour = calendar.get(Calendar.HOUR_OF_DAY); // 24-hour format
+                            int currentMinutes = calendar.get(Calendar.MINUTE);
+
+                            Date currentDate = new Date();
+
+                            // Define the desired date format
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+
+                            // Format the date
+                            String formattedDate = dateFormat.format(currentDate);
+
+                            Ticket t = new Ticket(park.getCity(), park.getParkName(), slot.getPlateId(), formattedDate, slot.getEntryHour(), slot.getEntryMin(), currentHour, currentMinutes, slot.getCost());
+
+                            Client.getClient().sendMessageToServer(new Message(RequestType.CREATE_TICKET, t));
+
                             @SuppressLint("DefaultLocale")
                             String msg3 = String.format("%.2f$, Payment success", slot.getCost());
                             exitStatus.setTextColor(Color.parseColor("#0da329"));

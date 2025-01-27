@@ -9,6 +9,7 @@ public class ParkingSlot {
 
     private long timeOfEntry;
     private int entryHour, entryMin;
+    private String plateId;
 
     public ParkingSlot(ImageView img, int row, int col){
         this.img = img;
@@ -67,5 +68,13 @@ public class ParkingSlot {
 
     public double getCost(){
         return ((double) (System.currentTimeMillis() - timeOfEntry) /1000) * 0.25;
+    }
+
+    public String getPlateId() {
+        return plateId;
+    }
+
+    public void setPlateId(String plateId) {
+        this.plateId = plateId;
     }
 }
