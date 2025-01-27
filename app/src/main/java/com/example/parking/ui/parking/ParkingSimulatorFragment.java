@@ -75,9 +75,9 @@ public class ParkingSimulatorFragment extends Fragment {
            }
 
            initVariables(view, getArguments());
-           blockHandler = new BlockHandler(getActivity(), view);
+           blockHandler = new BlockHandler(getActivity(), view, park);
 
-           blockHandler.initVariables(park);
+           blockHandler.initVariables();
 
            handler.post(carArrivalRunner);
            handler.post(carExitRunner);
@@ -103,7 +103,7 @@ public class ParkingSimulatorFragment extends Fragment {
                 System.out.println("Can't accept car");
                 //
             }
-            int delay = random.nextInt(3000) + 9000; // Random delay between 7-10 seconds (3000-7000ms)
+            int delay = random.nextInt(5000) + 20000; // Random delay between 20-25 seconds (3000-7000ms)
             handler.postDelayed(this, delay);
         }
     };
@@ -138,7 +138,7 @@ public class ParkingSimulatorFragment extends Fragment {
         parkName.setText(args.getString("park"));
 
         TextView cost = view.findViewById(R.id.cost);
-        String s = "25 cents/second";
+        String s = String.valueOf(park.getPrice());
         cost.setText(s);
 
     }

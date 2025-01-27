@@ -12,7 +12,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import com.example.parking.R;
@@ -24,7 +23,6 @@ import commons.requests.RequestType;
 public class LoginFragment extends Fragment {
 
     private EditText emailField, passwordField;
-    private LoginViewModel loginViewModel;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -34,10 +32,6 @@ public class LoginFragment extends Fragment {
         // Initialize fields
         emailField = view.findViewById(R.id.login_email);
         passwordField = view.findViewById(R.id.login_password);
-
-        // Initialize ViewModel
-        loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
-
 
         // Login button
         Button loginButton = view.findViewById(R.id.login_button);

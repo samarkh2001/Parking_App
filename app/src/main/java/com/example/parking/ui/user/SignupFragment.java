@@ -75,7 +75,7 @@ public class SignupFragment extends Fragment {
 
             return;
         }
-        User u = new User(firstName, lastName, email, password, vehicleNumber);
+        User u = new User(firstName, lastName, email, password);
         Client.getClient().sendMessageToServer(new Message(RequestType.REGISTER, u));
     }
 }

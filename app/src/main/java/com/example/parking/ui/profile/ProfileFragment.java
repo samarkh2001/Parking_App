@@ -31,7 +31,6 @@ public class ProfileFragment extends Fragment {
         String firstName = Client.loggedInUser.getFirstName();
         String lastName = Client.loggedInUser.getLastName();
         String email = Client.loggedInUser.getEmail();
-        String vehicleNumber = Client.loggedInUser.getVehicleNum();
         String vehicleLocation = "Slot A1 City1 Park12";
         String parkingTime = "10:30 AM";
         String paymentCost = "$10.00";
@@ -40,7 +39,6 @@ public class ProfileFragment extends Fragment {
         ((TextView) view.findViewById(R.id.welcome_message)).setText(
                 String.format("Welcome to our app, %s %s", firstName, lastName));
         ((TextView) view.findViewById(R.id.user_email)).setText(email);
-        ((TextView) view.findViewById(R.id.vehicle_number)).setText(vehicleNumber);
         ((TextView) view.findViewById(R.id.vehicle_location)).setText(vehicleLocation);
         ((TextView) view.findViewById(R.id.parking_time)).setText(parkingTime);
         ((TextView) view.findViewById(R.id.payment_cost)).setText(paymentCost);

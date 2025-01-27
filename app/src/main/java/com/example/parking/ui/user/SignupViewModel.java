@@ -10,8 +10,6 @@ public class SignupViewModel extends ViewModel {
         if (email == null || email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches())
             return false;
         if (password == null || password.length() < 6) return false;
-        if (vehicleNumber == null || vehicleNumber.length() != 8 || !vehicleNumber.matches("\\d+")) return false;
-
-        return true;
+        return vehicleNumber != null && vehicleNumber.length() == 8 && vehicleNumber.matches("\\d+");
     }
 }

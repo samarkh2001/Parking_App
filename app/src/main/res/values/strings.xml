@@ -72,5 +72,6 @@
     <string name="ticket">Ticket</string>
     <string name="parking_cost">Cost:</string>
     <string name="arrival_time">Arrival Time</string>
+    <string name="plate_id">Plate Id:</string>
 
 </resources>
