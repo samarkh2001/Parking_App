@@ -15,12 +15,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-
 import com.example.parking.R;
 import com.example.parking.client.Client;
-
 import java.util.Random;
-
 import commons.entities.Park;
 import commons.requests.Message;
 import commons.requests.RequestType;
@@ -40,7 +37,7 @@ public class ParkingSimulatorFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.parking_simulator_layout, container, false);
+        View view = inflater.inflate(R.layout.fragment_parking_simulator, container, false);
         TextView cityView = view.findViewById(R.id.cityText);
         TextView parkView = view.findViewById(R.id.parkText);
 

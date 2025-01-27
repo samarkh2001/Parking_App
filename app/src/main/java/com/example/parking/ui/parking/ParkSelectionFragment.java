@@ -15,15 +15,11 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-
 import com.example.parking.R;
 import com.example.parking.client.Client;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-
 import commons.entities.Park;
 import commons.requests.Message;
 import commons.requests.RequestType;
@@ -37,12 +33,6 @@ public class ParkSelectionFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-        if (Client.loggedInUser == null){
-            NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
-            navController.navigate(R.id.from_park_selection_to_signup_login);
-            return null;
-        }
 
         Client.forceWait = true;
         Client.getClient().sendMessageToServer(new Message(RequestType.GET_PARKS));
@@ -58,16 +48,6 @@ public class ParkSelectionFragment extends Fragment {
         parksSpinner = view.findViewById(R.id.parks_list);
         Button continueBtn = view.findViewById(R.id.continue_btn);
 
-        /*
-         * Initiating cities and parks
-         * */
-        if (ParkData.PARKS == null || ParkData.PARKS.keySet().isEmpty()){
-            Toast.makeText(getContext(), "Error loading data...", Toast.LENGTH_SHORT).show();
-            Client.debug("ParkSelectionFragment@CreateFragment", "Parks were null");
-            NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
-            navController.navigate(R.id.from_park_selection_to_signup_login);
-            return null;
-        }
 
         ParkData.CITIES = new ArrayList<>();
         for (String city : ParkData.PARKS.keySet()){

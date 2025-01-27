@@ -1,4 +1,4 @@
-package com.example.parking.ui.user;
+package com.example.parking.ui.management;
 
 import androidx.lifecycle.ViewModel;
 
