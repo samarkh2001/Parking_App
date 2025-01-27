@@ -1,4 +1,4 @@
-package com.example.parking.ui.user;
+package com.example.parking.ui.management;
 
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -8,8 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -29,7 +27,7 @@ public class LoginFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.login_fragment, container, false);
+        View view = inflater.inflate(R.layout.fragment_login, container, false);
 
         // Initialize fields
         emailField = view.findViewById(R.id.login_email);
@@ -38,28 +36,12 @@ public class LoginFragment extends Fragment {
         // Initialize ViewModel
         loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
 
-
         // Login button
         Button loginButton = view.findViewById(R.id.login_button);
         loginButton.setOnClickListener(v -> {
-            if (validateInputs()) {
-                if (Client.loggedInUser != null) {
-                    // Navigate to ParkSelectionFragment
                     NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
-                    navController.navigate(R.id.from_login_to_parking);
-                }
-            }else {
-                Toast.makeText(getContext(), "Invalid email or password", Toast.LENGTH_SHORT).show();
-            }
+                    navController.navigate(R.id.from_login_to_management);
         });
-
-        // Redirect to Sign Up
-        TextView signUpRedirectText = view.findViewById(R.id.signUpRedirectText);
-        signUpRedirectText.setOnClickListener(v -> {
-            NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
-            navController.navigate(R.id.from_login_to_signup);
-        });
-
         return view;
     }
 

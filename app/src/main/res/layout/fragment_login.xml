@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:gravity="center"
     android:background="@drawable/parking_bkg"
-    tools:context=".ui.user.LoginFragment">
+    tools:context=".ui.management.LoginFragment">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -69,29 +69,6 @@
                 android:layout_marginTop="30dp"
                 android:backgroundTint="@color/lavender"
                 app:cornerRadius = "20dp"/>
-
-            <TextView
-                android:id="@+id/forgot_password"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="5dp"
-                android:padding="8dp"
-                android:text="@string/forgot_password"
-                android:textColor="@color/lavender"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/signUpRedirectText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:padding="8dp"
-                android:layout_gravity="center"
-                android:text="@string/not_yet_registered_sign_up"
-                android:textAlignment="center"
-                android:textColor="@color/lavender"
-                android:textSize="18sp" />
 
         </LinearLayout>
 
