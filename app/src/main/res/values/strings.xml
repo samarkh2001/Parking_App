@@ -2,7 +2,7 @@
     <string name="app_name">Parking App</string>
     <string name="title_home">Home</string>
     <string name="title_park_selection">Parking</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_management">Management</string>
     <string name="select_park_title">Select Parking Location</string>
     <string name="city">City</string>
     <string name="park">Park</string>
@@ -73,5 +73,6 @@
     <string name="parking_cost">Cost:</string>
     <string name="arrival_time">Arrival Time</string>
     <string name="plate_id">Plate Id:</string>
+
 
 </resources>
